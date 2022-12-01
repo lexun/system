@@ -4,6 +4,7 @@
     "1password-cli"
     "1password"
     "brave-browser"
+    "discord"
     "iterm2"
     "nordvpn"
     "obsidian"
