@@ -1,7 +1,12 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home = {
+    file.".1password/agent.sock" = {
+      source = config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+    };
+
     packages = with pkgs; [
       elixir_1_14
       gnupg
@@ -12,6 +17,7 @@
 
     sessionVariables = {
       EDITOR = "nvim";
+      SSH_AUTH_SOCK = "~/.1password/agent.sock";
     };
 
     stateVersion = "23.05";
@@ -31,6 +37,15 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+  };
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks."*" = {
+      extraOptions = {
+        identityAgent = "~/.1password/agent.sock";
+      };
+    };
   };
 
   programs.vscode = {
