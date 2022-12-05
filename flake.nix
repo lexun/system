@@ -20,7 +20,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.luke = import ./darwin/home.nix;
+          home-manager.users.luke = import ./darwin/home/default.nix;
           users.users.luke.home = "/Users/luke";
         }
       ];
