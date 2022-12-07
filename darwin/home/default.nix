@@ -44,8 +44,10 @@
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
+      bungcip.better-toml
       eamodio.gitlens
       esbenp.prettier-vscode
+      jakebecker.elixir-ls
       jnoortheen.nix-ide
       vscodevim.vim
       yzhang.markdown-all-in-one
@@ -54,6 +56,7 @@
       "[markdown]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
       "editor.formatOnSave" = true;
       "editor.lineNumbers" = "relative";
+      "files.associations" = { "*.livemd" = "markdown"; };
       "prettier.proseWrap" = "always";
       "terminal.external.osxExec" = "iterm2.app";
       "vim.useSystemClipboard" = true;
