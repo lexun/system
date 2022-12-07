@@ -22,6 +22,8 @@
 
   programs.zsh.enable = true;
 
+  security.pam.enableSudoTouchIdAuth = true;
+
   services.nix-daemon.enable = true;
 
   system.keyboard.enableKeyMapping = true;
