@@ -10,6 +10,7 @@
     "obsidian"
     "raycast"
     "spotify"
+    "zoom"
   ];
 
   nix.settings.experimental-features = [
