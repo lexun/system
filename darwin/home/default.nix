@@ -21,6 +21,10 @@
     stateVersion = "23.05";
   };
 
+  programs.direnv = {
+    enable = true;
+  };
+
   programs.git = {
     enable = true;
     userName = "Luke Barbuto";
