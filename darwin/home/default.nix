@@ -65,6 +65,9 @@
 
   programs.zsh = {
     enable = true;
+    localVariables = {
+      RPROMPT = null;
+    };
     shellAliases = {
       update = "cd ~/.system && darwin-rebuild switch --flake . && rm result && exec $SHELL";
     };
