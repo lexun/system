@@ -47,14 +47,23 @@
       bungcip.better-toml
       eamodio.gitlens
       esbenp.prettier-vscode
+      github.copilot
       jakebecker.elixir-ls
       jnoortheen.nix-ide
       vscodevim.vim
       yzhang.markdown-all-in-one
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "copilot-labs";
+        publisher = "github";
+        version = "0.4.488";
+        sha256 = "Vy7T8PfU/4vAgHtFb++mJCfQYVijIL183XgfOJRB0ck=";
+      }
     ];
     userSettings = {
       "[markdown]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
       "editor.formatOnSave" = true;
+      "editor.inlineSuggest.enabled" = true;
       "editor.lineNumbers" = "relative";
       "files.associations" = { "*.livemd" = "markdown"; };
       "prettier.proseWrap" = "always";
