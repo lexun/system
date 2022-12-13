@@ -29,10 +29,6 @@
     enable = true;
     userName = "Luke Barbuto";
     userEmail = "luke.barbuto@gmail.com";
-    signing = {
-      key = "38F5A5A55CFBA98B";
-      signByDefault = true;
-    };
   };
 
   programs.neovim = {
