@@ -61,6 +61,7 @@
       "editor.inlineSuggest.enabled" = true;
       "editor.lineNumbers" = "relative";
       "files.associations" = { "*.livemd" = "markdown"; };
+      "files.insertFinalNewline" = true;
       "prettier.proseWrap" = "always";
       "terminal.external.osxExec" = "iterm2.app";
       "vim.useSystemClipboard" = true;
