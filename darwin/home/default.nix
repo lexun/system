@@ -74,7 +74,7 @@
       RPROMPT = null;
     };
     shellAliases = {
-      update = "cd ~/.system && darwin-rebuild switch --flake . && rm result && exec $SHELL";
+      update = "cd ~/.system && darwin-rebuild switch --flake . && exec $SHELL";
     };
     oh-my-zsh = {
       enable = true;
