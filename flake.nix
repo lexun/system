@@ -1,5 +1,5 @@
 {
-  description = "Macbook Pro";
+  description = "Luke's Nix packages and system configurations.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
@@ -9,21 +9,14 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager }: {
-    darwinConfigurations."Lukes-MacBook-Pro" = darwin.lib.darwinSystem {
-      system = "x86_64-darwin";
-      modules = [
-        ./darwin/system.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.luke = import ./darwin/home/default.nix;
-          users.users.luke.home = "/Users/luke";
-        }
-      ];
-    };
-  };
+  outputs = { self, nixpkgs, darwin, home-manager, flake-utils }:
+    let
+      devices = import ./devices { inherit darwin home-manager flake-utils; };
+      packages = import ./packages { inherit nixpkgs flake-utils; };
+    in
+    devices // packages;
 }
