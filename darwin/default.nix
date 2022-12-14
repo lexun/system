@@ -9,6 +9,7 @@
     "nordvpn"
     "obsidian"
     "raycast"
+    "slack"
     "spotify"
     "zoom"
   ];
