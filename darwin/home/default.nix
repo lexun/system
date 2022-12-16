@@ -28,6 +28,11 @@
     enable = true;
     userName = "Luke Barbuto";
     userEmail = "luke.barbuto@gmail.com";
+    extraConfig = {
+      init = {
+        defaultBranch = "master";
+      };
+    };
   };
 
   programs.neovim = {
