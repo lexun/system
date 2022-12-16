@@ -6,3 +6,7 @@ packages = [ "livebook" ]
 [[env]]
 name = "LIVEBOOK_HOME"
 eval = "$(realpath .)"
+
+[[env]]
+name = "LIVEBOOK_DATA_PATH"
+eval = "$(realpath .)/.livebook"
