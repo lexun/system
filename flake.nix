@@ -18,5 +18,5 @@
       config = import ./devices { inherit darwin home-manager flake-utils; };
       packages = import ./packages { inherit self nixpkgs flake-utils; };
     in
-    config // packages;
+    config // packages // { templates = import ./templates; };
 }

@@ -1,0 +1,8 @@
+# https://numtide.github.io/devshell
+
+motd = ""
+packages = [ "livebook" ]
+
+[[env]]
+name = "LIVEBOOK_HOME"
+eval = "$(realpath .)"
