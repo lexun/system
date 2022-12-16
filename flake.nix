@@ -15,8 +15,8 @@
 
   outputs = { self, nixpkgs, darwin, home-manager, flake-utils }:
     let
-      devices = import ./devices { inherit darwin home-manager flake-utils; };
-      packages = import ./packages { inherit nixpkgs flake-utils; };
+      config = import ./devices { inherit darwin home-manager flake-utils; };
+      packages = import ./packages { inherit self nixpkgs flake-utils; };
     in
-    devices // packages;
+    config // packages;
 }

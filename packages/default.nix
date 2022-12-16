@@ -1,12 +1,9 @@
-{ nixpkgs, flake-utils }:
+{ self, nixpkgs, flake-utils }:
 
-flake-utils.lib.eachDefaultSystem (
-  system:
-  let pkgs = import nixpkgs { inherit system; };
-  in
-  {
-    packages = {
-      livebook = pkgs.callPackage ./livebook.nix { };
-    };
-  }
+let overlay = import ./overlay.nix;
+in
+{ inherit overlay; } //
+flake-utils.lib.eachDefaultSystem (system:
+  let pkgs = import nixpkgs { inherit system overlay; };
+  in { packages = overlay self pkgs; }
 )
