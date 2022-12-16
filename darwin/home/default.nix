@@ -54,6 +54,12 @@
         version = "0.4.488";
         sha256 = "Vy7T8PfU/4vAgHtFb++mJCfQYVijIL183XgfOJRB0ck=";
       }
+      {
+        name = "vscode-icons";
+        publisher = "vscode-icons-team";
+        version = "12.0.1";
+        sha256 = "zxKD+8PfuaBaNoxTP1IHwG+25v0hDkYBj4RPn7mSzzU=";
+      }
     ];
     userSettings = {
       "[markdown]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
@@ -65,6 +71,7 @@
       "prettier.proseWrap" = "always";
       "terminal.external.osxExec" = "iterm2.app";
       "vim.useSystemClipboard" = true;
+      "workbench.iconTheme" = "vscode-icons";
     };
   };
 
