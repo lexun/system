@@ -50,6 +50,7 @@
       github.copilot
       jakebecker.elixir-ls
       jnoortheen.nix-ide
+      mkhl.direnv
       vscodevim.vim
       yzhang.markdown-all-in-one
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
