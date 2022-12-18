@@ -5,8 +5,8 @@ packages = [ "livebook" ]
 
 [[env]]
 name = "LIVEBOOK_HOME"
-eval = "$(realpath .)"
+eval = "$PWD"
 
 [[env]]
 name = "LIVEBOOK_DATA_PATH"
-eval = "$(realpath .)/.livebook"
+eval = "$PWD/.livebook"
