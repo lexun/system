@@ -75,6 +75,7 @@
       "editor.formatOnSave" = true;
       "editor.inlineSuggest.enabled" = true;
       "editor.lineNumbers" = "relative";
+      "editor.tabSize" = 2;
       "files.associations" = { "*.livemd" = "markdown"; };
       "files.insertFinalNewline" = true;
       "prettier.proseWrap" = "always";
