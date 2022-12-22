@@ -51,6 +51,7 @@
       jakebecker.elixir-ls
       jnoortheen.nix-ide
       mkhl.direnv
+      phoenixframework.phoenix
       vscodevim.vim
       yzhang.markdown-all-in-one
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
