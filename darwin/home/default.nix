@@ -86,6 +86,7 @@
       "files.insertFinalNewline" = true;
       "prettier.proseWrap" = "always";
       "terminal.external.osxExec" = "iterm2.app";
+      "terminal.integrated.scrollback" = 10000;
       "vim.useSystemClipboard" = true;
       "workbench.iconTheme" = "vscode-icons";
     };
