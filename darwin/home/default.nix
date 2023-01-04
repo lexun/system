@@ -62,6 +62,12 @@
         sha256 = "Vy7T8PfU/4vAgHtFb++mJCfQYVijIL183XgfOJRB0ck=";
       }
       {
+        name = "elixir-test";
+        publisher = "samuel-pordeus";
+        version = "1.7.1";
+        sha256 = "sha256-Z467J7DSQagfooWH124fGvpdmG//NHwG44TiXOsyP3E=";
+      }
+      {
         name = "vscode-icons";
         publisher = "vscode-icons-team";
         version = "12.0.1";
