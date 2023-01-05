@@ -68,6 +68,12 @@
         sha256 = "sha256-Z467J7DSQagfooWH124fGvpdmG//NHwG44TiXOsyP3E=";
       }
       {
+        name = "remote-containers";
+        publisher = "ms-vscode-remote";
+        version = "0.266.1";
+        sha256 = "sha256-D0nwLKGojvvRuviGRI9zo4SZmpZgee7ZpHLWjUK3LWA=";
+      }
+      {
         name = "vscode-icons";
         publisher = "vscode-icons-team";
         version = "12.0.1";
