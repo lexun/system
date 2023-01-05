@@ -79,6 +79,12 @@
         version = "12.0.1";
         sha256 = "zxKD+8PfuaBaNoxTP1IHwG+25v0hDkYBj4RPn7mSzzU=";
       }
+      {
+        name = "vsliveshare";
+        publisher = "ms-vsliveshare";
+        version = "1.0.5797";
+        sha256 = "sha256-yXHhHNufeGZI9D8e0bPFQZRFY/5ePSJ8aTNlldBpVyU=";
+      }
     ];
     userSettings = {
       "[css]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
