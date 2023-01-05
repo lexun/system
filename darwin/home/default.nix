@@ -83,6 +83,7 @@
     userSettings = {
       "[css]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
       "[javascript]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+      "[json]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
       "[markdown]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
       "editor.formatOnSave" = true;
       "editor.inlineSuggest.enabled" = true;
