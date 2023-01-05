@@ -8,6 +8,7 @@
     "iterm2"
     "nordvpn"
     "obsidian"
+    "pop"
     "raycast"
     "slack"
     "spotify"
