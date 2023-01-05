@@ -5,6 +5,7 @@
     "1password"
     "brave-browser"
     "discord"
+    "docker"
     "iterm2"
     "nordvpn"
     "obsidian"
