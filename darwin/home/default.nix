@@ -112,6 +112,7 @@
     };
     shellAliases = {
       update = "cd ~/.system && darwin-rebuild switch --flake . && exec $SHELL";
+      update-code-extensions = "~/workspace/nixos/nixpkgs/pkgs/applications/editors/vscode/extensions/update_installed_exts.sh";
     };
     oh-my-zsh = {
       enable = true;
