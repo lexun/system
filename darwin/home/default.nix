@@ -58,32 +58,32 @@
       {
         name = "copilot-labs";
         publisher = "github";
-        version = "0.4.488";
-        sha256 = "Vy7T8PfU/4vAgHtFb++mJCfQYVijIL183XgfOJRB0ck=";
+        version = "0.9.668";
+        sha256 = "09pdyb844sfiz3akj3d0k6wbjb3w34j9wy7w76mkxj06a3a6f5dm";
       }
       {
         name = "elixir-test";
         publisher = "samuel-pordeus";
         version = "1.7.1";
-        sha256 = "sha256-Z467J7DSQagfooWH124fGvpdmG//NHwG44TiXOsyP3E=";
+        sha256 = "0w9z6bmmrql4wc37qd7zdyc5vyhs3xpdg1w5l8gshhfjn0kvp3k7";
       }
       {
         name = "remote-containers";
         publisher = "ms-vscode-remote";
-        version = "0.266.1";
-        sha256 = "sha256-D0nwLKGojvvRuviGRI9zo4SZmpZgee7ZpHLWjUK3LWA=";
+        version = "0.276.0";
+        sha256 = "1973x9r4k2b8919wzpash17c58csv2d6k953szfk3gcrvx8xdffq";
       }
       {
         name = "vscode-icons";
         publisher = "vscode-icons-team";
-        version = "12.0.1";
-        sha256 = "zxKD+8PfuaBaNoxTP1IHwG+25v0hDkYBj4RPn7mSzzU=";
+        version = "12.2.0";
+        sha256 = "12s5br0s9n99vjn6chivzdsjb71p0lai6vnif7lv13x497dkw4rz";
       }
       {
         name = "vsliveshare";
         publisher = "ms-vsliveshare";
-        version = "1.0.5797";
-        sha256 = "sha256-yXHhHNufeGZI9D8e0bPFQZRFY/5ePSJ8aTNlldBpVyU=";
+        version = "1.0.5828";
+        sha256 = "1myk9njk2l3r989vf6m1x7ff0ygkrpkf2i5h2ba3zczp4sp8fh6d";
       }
     ];
     userSettings = {
