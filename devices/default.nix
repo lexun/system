@@ -1,8 +1,8 @@
 { darwin, flake-utils, home-manager }:
 
 let
-  darwinModules = [
-    ../darwin
+  darwinModules = darwinOptions: [
+    (import ../darwin darwinOptions)
     home-manager.darwinModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
@@ -16,11 +16,11 @@ in
   darwinConfigurations = {
     "Lukes-Personal-MBP" = darwin.lib.darwinSystem {
       system = flake-utils.lib.system.x86_64-darwin;
-      modules = darwinModules;
+      modules = darwinModules { };
     };
     "Lukes-Work-MBP" = darwin.lib.darwinSystem {
       system = flake-utils.lib.system.aarch64-darwin;
-      modules = darwinModules;
+      modules = darwinModules { additionalCasks = [ "tandem" ]; };
     };
   };
 }

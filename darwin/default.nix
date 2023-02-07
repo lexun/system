@@ -1,6 +1,8 @@
+{ additionalCasks ? [ ] }:
+
 {
   homebrew.enable = true;
-  homebrew.casks = [
+  homebrew.casks = additionalCasks ++ [
     "1password-cli"
     "1password"
     "brave-browser"
@@ -9,7 +11,6 @@
     "iterm2"
     "nordvpn"
     "obsidian"
-    "pop"
     "raycast"
     "slack"
     "spotify"
