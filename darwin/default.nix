@@ -19,8 +19,9 @@
   ];
 
   nix.settings.experimental-features = [
-    "nix-command"
     "flakes"
+    "nix-command"
+    "repl-flake"
   ];
 
   nixpkgs.config.allowUnfree = true;
