@@ -52,6 +52,7 @@
       jnoortheen.nix-ide
       mkhl.direnv
       phoenixframework.phoenix
+      streetsidesoftware.code-spell-checker
       vscodevim.vim
       yzhang.markdown-all-in-one
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
