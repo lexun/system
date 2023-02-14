@@ -5,6 +5,7 @@
   homebrew.casks = additionalCasks ++ [
     "1password-cli"
     "1password"
+    "beekeeper-studio"
     "brave-browser"
     "discord"
     "docker"
