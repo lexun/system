@@ -20,7 +20,12 @@ in
     };
     "Lukes-Work-MBP" = darwin.lib.darwinSystem {
       system = flake-utils.lib.system.aarch64-darwin;
-      modules = darwinModules { additionalCasks = [ "tandem" ]; };
+      modules = darwinModules {
+        additionalCasks = [
+          "amazon-workspaces"
+          "tandem"
+        ];
+      };
     };
   };
 }
