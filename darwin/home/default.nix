@@ -59,8 +59,8 @@
       {
         name = "copilot-labs";
         publisher = "github";
-        version = "0.9.668";
-        sha256 = "09pdyb844sfiz3akj3d0k6wbjb3w34j9wy7w76mkxj06a3a6f5dm";
+        version = "0.10.704";
+        sha256 = "1xjjhcb9k1xrmihg6gjvvi07ym4nlhkyfkcqfl8f7z0r0961yl1w";
       }
       {
         name = "elixir-test";
@@ -71,8 +71,8 @@
       {
         name = "remote-containers";
         publisher = "ms-vscode-remote";
-        version = "0.276.0";
-        sha256 = "1973x9r4k2b8919wzpash17c58csv2d6k953szfk3gcrvx8xdffq";
+        version = "0.280.0";
+        sha256 = "14m46l8b0vn3w330rhb5n1xsjbyx7pk6x8zjijcy2irjyn32cwz9";
       }
       {
         name = "vscode-icons";
@@ -83,8 +83,8 @@
       {
         name = "vsliveshare";
         publisher = "ms-vsliveshare";
-        version = "1.0.5828";
-        sha256 = "1myk9njk2l3r989vf6m1x7ff0ygkrpkf2i5h2ba3zczp4sp8fh6d";
+        version = "1.0.5831";
+        sha256 = "0gcicmnh5zm5qx8acl784zfhpm0mvd607q8jv3x4r6sy3ijb0n21";
       }
     ];
     userSettings = {
