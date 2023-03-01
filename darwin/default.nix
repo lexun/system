@@ -1,8 +1,6 @@
-{ additionalCasks ? [ ] }:
-
 {
   homebrew.enable = true;
-  homebrew.casks = additionalCasks ++ [
+  homebrew.casks = [
     "1password-cli"
     "1password"
     "beekeeper-studio"
