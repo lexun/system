@@ -7,10 +7,13 @@
 
   home = {
     packages = with pkgs; [
+      elixir
       gnupg
       navi
       nixpkgs-fmt
+      nodejs
       nodePackages.prettier
+      tree
     ];
 
     sessionVariables = {
