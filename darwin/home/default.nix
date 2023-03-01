@@ -111,7 +111,6 @@
     localVariables = {
       RPROMPT = null;
     };
-    profileExtra = ''eval "$(/opt/homebrew/bin/brew shellenv)"'';
     shellAliases = {
       update = "cd ~/.system && darwin-rebuild switch --flake . && exec $SHELL";
       update-code-extensions = "~/workspace/nixos/nixpkgs/pkgs/applications/editors/vscode/extensions/update_installed_exts.sh";
