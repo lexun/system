@@ -10,22 +10,6 @@ darwin.lib.darwinSystem {
     ];
     home-manager.users.luke = { pkgs, ... }: {
       imports = [ (import ../darwin/home) ];
-      programs.vscode = {
-        extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-          {
-            name = "vscode-extension-for-zowe";
-            publisher = "zowe";
-            version = "2.6.1";
-            sha256 = "sha256-oILRL07atIoEHdJiGZWvvXMgvDUZ2n+TwpTvGObra9g=";
-          }
-          {
-            name = "zopeneditor";
-            publisher = "ibm";
-            version = "3.0.1";
-            sha256 = "sha256-c0kpv0hbPriWK5oJyacXB81d0es6xRdKuu6U1ybB39I=";
-          }
-        ];
-      };
       programs.zsh = {
         profileExtra = ''eval "$(/opt/homebrew/bin/brew shellenv)"'';
       };
