@@ -11,7 +11,6 @@
       gnupg
       navi
       nixpkgs-fmt
-      nodejs
       nodePackages.prettier
       tree
     ];
