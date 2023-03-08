@@ -46,6 +46,7 @@
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
+      bierner.markdown-mermaid
       bungcip.better-toml
       eamodio.gitlens
       esbenp.prettier-vscode
@@ -58,6 +59,12 @@
       vscodevim.vim
       yzhang.markdown-all-in-one
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "mermaid-markdown-syntax-highlighting";
+        publisher = "bpruitt-goddard";
+        version = "1.5.1";
+        sha256 = "sha256-aC2vWmFPXAV6WYGzJ1mZIlyeKspjRb/eWVSvsXpeP8k=";
+      }
       {
         name = "copilot-labs";
         publisher = "github";
