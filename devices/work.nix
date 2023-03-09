@@ -7,6 +7,7 @@ darwin.lib.darwinSystem {
     homebrew.casks = [
       "amazon-workspaces"
       "tandem"
+      "dbvisualizer"
     ];
     home-manager.users.luke = { pkgs, ... }: {
       imports = [ (import ../darwin/home) ];
