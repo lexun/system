@@ -121,7 +121,9 @@
       RPROMPT = null;
     };
     shellAliases = {
-      update = "cd ~/.system && darwin-rebuild switch --flake . && exec $SHELL";
+      update =
+        let command = if pkgs.stdenv.isLinux then "sudo nixos-rebuild" else "darwin-rebuild";
+        in "cd ~/.system && ${command} switch --flake . && exec $SHELL";
       update-code-extensions = "~/workspace/nixos/nixpkgs/pkgs/applications/editors/vscode/extensions/update_installed_exts.sh";
     };
     oh-my-zsh = {
