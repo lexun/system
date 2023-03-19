@@ -112,6 +112,7 @@
       "terminal.integrated.scrollback" = 10000;
       "vim.useSystemClipboard" = true;
       "workbench.iconTheme" = "vscode-icons";
+      "keyboard.dispatch" = "keyCode";
     };
   };
 
