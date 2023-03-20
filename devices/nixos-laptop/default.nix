@@ -1,7 +1,8 @@
-{ flake-utils, home-manager, nixpkgs }:
+{ flake-utils, home-manager, nixpkgs, nixified-ai }:
 
 nixpkgs.lib.nixosSystem {
   system = flake-utils.lib.system.x86_64-linux;
+  specialArgs = { inherit nixified-ai; };
   modules = [
     ../../modules/nixos
     ./configuration.nix

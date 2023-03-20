@@ -1,4 +1,4 @@
-{ darwin, flake-utils, home-manager, nixpkgs }:
+{ darwin, flake-utils, home-manager, nixpkgs, nixified-ai }:
 
 {
   darwinConfigurations = {
@@ -6,6 +6,6 @@
     "Lukes-Work-MBP" = import ./work-macbook.nix { inherit darwin flake-utils home-manager; };
   };
   nixosConfigurations = {
-    "Lukes-NixOS-RB" = import ./nixos-laptop { inherit nixpkgs flake-utils home-manager; };
+    "Lukes-NixOS-RB" = import ./nixos-laptop { inherit nixpkgs flake-utils home-manager nixified-ai; };
   };
 }

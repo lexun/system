@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixified-ai, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -12,11 +12,13 @@
     isNormalUser = true;
     description = "Luke Barbuto";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
+    packages = with pkgs; with nixified-ai.packages.${pkgs.system}; [
       brave
       navi
       obsidian
       protonvpn-gui
+      invokeai-nvidia
+      koboldai-nvidia
     ];
   };
 
