@@ -39,7 +39,7 @@
     userEmail = "luke.barbuto@gmail.com";
     extraConfig = {
       init = {
-        defaultBranch = "master";
+        defaultBranch = "main";
       };
     };
   };
