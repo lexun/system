@@ -42,6 +42,12 @@
     sha256 = "0b42z03yignwb0w3jbzlb1l6ly91mvm04pmnz1g6v20k5g16qayx";
   }
   {
+    name = "terraform";
+    publisher = "hashicorp";
+    version = "2.25.4";
+    sha256 = "0998jd4bl0c47kgchrhqfp6h817gr0kr8lj6dgrsgvf2g03bhzx3";
+  }
+  {
     name = "elixir-ls";
     publisher = "JakeBecker";
     version = "0.13.0";
