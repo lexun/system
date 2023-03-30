@@ -20,6 +20,7 @@
       nodePackages.prettier
       tree
       vscode-update-exts
+      watch
     ];
 
     sessionVariables = {
