@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://raw.githubusercontent.com/${repo}/${rev}/${file}";
-    sha256 = "sha256-W1MwcMuzvxrblhfjkk/ulNnwRAyeQK16dKCdbY5v64U=";
+    sha256 = "sha256-+VczWApzt68jcjuDsHWsuBIacafEmRrWNEjCw88jo7Q=";
+    executable = true;
   };
 
   unpackPhase = ''
@@ -24,7 +25,6 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     cp update_installed_exts.sh $out/bin/vscode-update-exts
-    chmod +x $out/bin/vscode-update-exts
   '';
 }
 
