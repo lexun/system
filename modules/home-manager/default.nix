@@ -56,13 +56,24 @@
     localVariables = {
       RPROMPT = null;
     };
-    shellAliases = {
-      update =
-        let command = if pkgs.stdenv.isLinux then "sudo nixos-rebuild" else "darwin-rebuild";
-        in "cd ~/.system && ${command} switch --flake . && exec $SHELL";
-      update-code-extensions =
-        "vscode-update-exts > ~/.system/modules/home-manager/vscode/extensions.nix && update";
-    };
+    shellAliases =
+      let
+        update-command =
+          if pkgs.stdenv.isLinux
+          then "sudo nixos-rebuild"
+          else "darwin-rebuild";
+      in
+      {
+        update = ''
+          cd ~/.system \
+            && ${update-command} switch --flake . \
+            && exec $SHELL
+        '';
+        update-code-extensions = ''
+          vscode-update-exts \
+            > ~/.system/modules/home-manager/vscode/extensions.nix
+        '';
+      };
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
