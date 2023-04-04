@@ -51,6 +51,11 @@
     vimAlias = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    controlPath = "none";
+  };
+
   programs.zsh = {
     enable = true;
     localVariables = {
