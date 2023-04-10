@@ -2,8 +2,8 @@
   {
     name = "markdown-mermaid";
     publisher = "bierner";
-    version = "1.18.0";
-    sha256 = "0770wd8ql1zqmqs0h32q7zw8nlr598s6qd3br6015vlkd8c21kjz";
+    version = "1.18.1";
+    sha256 = "1357sszmicz0jcvf1z9dbbqbls40jjvki5piwvw9sbbznnrr4rr5";
   }
   {
     name = "mermaid-markdown-syntax-highlighting";
@@ -20,8 +20,8 @@
   {
     name = "gitlens";
     publisher = "eamodio";
-    version = "2023.3.3005";
-    sha256 = "0v8836b76w3zilafrivnn19xldv2gad03f646sjcf7q1xsjhd8sz";
+    version = "2023.4.1005";
+    sha256 = "08vj2jldv4g50z1y5zdrlhj9jyhfv4887az8nk5q4pcalw08z5l3";
   }
   {
     name = "prettier-vscode";
@@ -32,8 +32,8 @@
   {
     name = "copilot";
     publisher = "GitHub";
-    version = "1.78.9758";
-    sha256 = "028di2bayvabm0y9qbhrpar8jgbld304qr7vz8pp6yljplrrm1m8";
+    version = "1.79.10634";
+    sha256 = "1a0s09aq66wkgc7560ggwh7sr0li5z2zrv65c8p080l3znc9lipi";
   }
   {
     name = "copilot-labs";
@@ -92,8 +92,8 @@
   {
     name = "code-spell-checker";
     publisher = "streetsidesoftware";
-    version = "2.20.3";
-    sha256 = "1p22ilk5cyr6h6jl89hwdcwvzslhzmh58zc7yysqlphv38s9pk6v";
+    version = "2.20.4";
+    sha256 = "07z1yy7kzhl6w0xyi589b7ivbpy29nbx46258nm7rjn4jdfwmr8q";
   }
   {
     name = "vscode-icons";
