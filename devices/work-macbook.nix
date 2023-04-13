@@ -13,6 +13,7 @@ darwin.lib.darwinSystem {
     ];
     homebrew.casks = [
       "amazon-workspaces"
+      "hex-fiend"
       "tandem"
       "dbvisualizer"
     ];
