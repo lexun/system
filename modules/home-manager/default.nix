@@ -1,9 +1,11 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
-    (import ./one-password.nix)
-    (import ./vscode)
+    ./helix.nix
+    ./nushell.nix
+    ./one-password.nix
+    ./vscode
   ];
 
   nixpkgs = {
@@ -14,6 +16,7 @@
   home = {
     packages = with pkgs; [
       elixir
+      exa
       gnupg
       navi
       nixpkgs-fmt
@@ -27,7 +30,37 @@
       EDITOR = "nvim";
     };
 
+    shellAliases =
+      let
+        update-command =
+          if pkgs.stdenv.isLinux
+          then "sudo nixos-rebuild"
+          else "darwin-rebuild";
+      in
+      {
+        update-system = ''
+          cd ~/.system \
+            && ${update-command} switch --flake . \
+            && exec $SHELL
+        '';
+        update-code-extensions = ''
+          vscode-update-exts \
+            > ~/.system/modules/home-manager/vscode/extensions.nix
+        '';
+      };
+
     stateVersion = "23.05";
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      shell = "${pkgs.nushell}/bin/nu";
+      import = [ "${pkgs.alacritty-theme}/citylights.yaml" ];
+      window = {
+        option_as_alt = "Both";
+      };
+    };
   };
 
   programs.direnv = {
@@ -56,29 +89,13 @@
     controlPath = "none";
   };
 
+  programs.zellij = {
+    enable = true;
+  };
+
   programs.zsh = {
     enable = true;
-    localVariables = {
-      RPROMPT = null;
-    };
-    shellAliases =
-      let
-        update-command =
-          if pkgs.stdenv.isLinux
-          then "sudo nixos-rebuild"
-          else "darwin-rebuild";
-      in
-      {
-        update = ''
-          cd ~/.system \
-            && ${update-command} switch --flake . \
-            && exec $SHELL
-        '';
-        update-code-extensions = ''
-          vscode-update-exts \
-            > ~/.system/modules/home-manager/vscode/extensions.nix
-        '';
-      };
+    localVariables.RPROMPT = null;
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
