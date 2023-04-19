@@ -13,18 +13,19 @@
       "[javascript]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
       "[json]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
       "[markdown]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+      "direnv.path.executable" = "${pkgs.direnv}/bin/direnv";
       "editor.formatOnSave" = true;
       "editor.inlineSuggest.enabled" = true;
       "editor.lineNumbers" = "relative";
       "editor.tabSize" = 2;
       "files.associations" = { "*.livemd" = "markdown"; };
       "files.insertFinalNewline" = true;
+      "keyboard.dispatch" = "keyCode";
       "prettier.proseWrap" = "always";
       "terminal.external.osxExec" = "iterm2.app";
       "terminal.integrated.scrollback" = 10000;
       "vim.useSystemClipboard" = true;
       "workbench.iconTheme" = "vscode-icons";
-      "keyboard.dispatch" = "keyCode";
     };
   };
 }
