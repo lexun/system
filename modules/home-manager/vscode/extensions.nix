@@ -20,8 +20,8 @@
   {
     name = "gitlens";
     publisher = "eamodio";
-    version = "2023.4.1005";
-    sha256 = "08vj2jldv4g50z1y5zdrlhj9jyhfv4887az8nk5q4pcalw08z5l3";
+    version = "2023.4.1805";
+    sha256 = "1r5jwib3qbvk0w7wlm8api1s4fyy8hkv7wl8mbjr69gszs1ky43w";
   }
   {
     name = "prettier-vscode";
@@ -32,8 +32,8 @@
   {
     name = "copilot";
     publisher = "GitHub";
-    version = "1.79.10634";
-    sha256 = "1a0s09aq66wkgc7560ggwh7sr0li5z2zrv65c8p080l3znc9lipi";
+    version = "1.82.15";
+    sha256 = "1nfgfi827xiz347dmdyk3d5yhfjlaz1lx9ygssxjdm89zgpw13xz";
   }
   {
     name = "copilot-labs";
@@ -50,8 +50,8 @@
   {
     name = "elixir-ls";
     publisher = "JakeBecker";
-    version = "0.13.0";
-    sha256 = "0ssv0s68mx6fi8mspxp824mxx6a890vshz8bc0mwd49g6caqprnn";
+    version = "0.14.3";
+    sha256 = "0q7ncv9x27xc8zk1g3i39l6n38vksbi2pm327wpw08y2f1sra4xj";
   }
   {
     name = "nix-ide";
@@ -62,20 +62,20 @@
   {
     name = "direnv";
     publisher = "mkhl";
-    version = "0.10.1";
-    sha256 = "0m89sx1qqdkwa9pfmd9b11lp8z0dqpi6jn27js5q4ymscyg41bqd";
+    version = "0.12.0";
+    sha256 = "1ib29m8809pka9vkdvdp6psq8h8gld4542whrfii80wg11c97hah";
   }
   {
     name = "remote-containers";
     publisher = "ms-vscode-remote";
-    version = "0.289.0";
-    sha256 = "0hn3213ml2x0x6hmimgvd45s64m19djm960ykakwzwbiaaaj5f2k";
+    version = "0.290.0";
+    sha256 = "15nkifq9kh5d7zq0wi8whp9srih3bihnz7dbrpmh2rg33m0q80r7";
   }
   {
     name = "vsliveshare";
     publisher = "ms-vsliveshare";
-    version = "1.0.5834";
-    sha256 = "0xh719xmacgyn59xvbl4isb5xvg5i11bjmqpqra5pm8niyyy59zq";
+    version = "1.0.5862";
+    sha256 = "0cj2fqqg4jymzb2l1z9vjhx780cs1qa8ibinfnq5s1h2i4asaa8q";
   }
   {
     name = "phoenix";
@@ -98,8 +98,8 @@
   {
     name = "vscode-icons";
     publisher = "vscode-icons-team";
-    version = "12.2.0";
-    sha256 = "12s5br0s9n99vjn6chivzdsjb71p0lai6vnif7lv13x497dkw4rz";
+    version = "12.3.0";
+    sha256 = "0virk431i4b3gpj4gdnnydg5dmgpzfvxq9p4h414dwpk6mi00qzg";
   }
   {
     name = "vim";
