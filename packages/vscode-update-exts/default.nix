@@ -8,7 +8,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "vscode-update-exts";
-  version = "1.0.0";
+  version = "0.0.1";
 
   src = fetchurl {
     url = "https://raw.githubusercontent.com/${repo}/${rev}/${file}";

@@ -1,4 +1,11 @@
+{ inputs, ... }:
+
 {
+  users.users.luke.home = "/Users/luke";
+
+  home-manager.users.luke = ../home-manager;
+  home-manager.useUserPackages = true;
+
   homebrew.enable = true;
   homebrew.casks = [
     "1password-cli"

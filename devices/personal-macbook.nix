@@ -1,16 +1,9 @@
-{ darwin, flake-utils, home-manager }:
+{ darwin, home-manager }:
 
 darwin.lib.darwinSystem {
-  system = flake-utils.lib.system.x86_64-darwin;
-  modules = [{
-    imports = [
-      ../modules/nix-darwin
-      home-manager.darwinModules.home-manager
-      {
-        home-manager.useUserPackages = true;
-        users.users.luke.home = "/Users/luke";
-      }
-    ];
-    home-manager.users.luke = import ../modules/home-manager;
-  }];
+  system = "x86_64-darwin";
+  modules = [
+    home-manager.darwinModules.home-manager
+    ../modules/nix-darwin
+  ];
 }

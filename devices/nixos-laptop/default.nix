@@ -1,7 +1,7 @@
-{ flake-utils, home-manager, nixpkgs }:
+{ home-manager, nixpkgs }:
 
 nixpkgs.lib.nixosSystem {
-  system = flake-utils.lib.system.x86_64-linux;
+  system = "x86_64-linux";
   modules = [
     ../../modules/nixos
     ./configuration.nix

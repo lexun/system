@@ -14,7 +14,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       brave
-      navi
       obsidian
       protonvpn-gui
     ];
