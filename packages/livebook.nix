@@ -7,19 +7,19 @@
 let
   pname = "livebook";
 
-  version = "0.8.1";
+  version = "0.9.2";
 
   src = fetchFromGitHub {
     owner = "livebook-dev";
     repo = "livebook";
     rev = "v${version}";
-    sha256 = "sha256-z2nNNp+gyB3hfI0RoaXkKm/+/gjzcCY3fzV0CMr6UJw=";
+    sha256 = "sha256-khC3gtRvywgAY6qHslZgAV3kmziJgKhdCB8CDg/HkIU=";
   };
 
   mixFodDeps = beamPackages.fetchMixDeps {
     pname = "mix-deps-${pname}";
     inherit src version;
-    sha256 = "sha256-w0ytJuzsCvRMNpy+bSYMwT/5yCg+tJ+Vf4ESE6BlZKY=";
+    sha256 = "sha256-rwWGs4fGeuyV6BBFgCyyDwKf/YLgs1wY0xnHYy8iioE=";
   };
 
   elixir = beamPackages.elixir_1_14;

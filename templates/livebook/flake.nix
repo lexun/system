@@ -10,7 +10,10 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ livebook.overlay devshell.overlay ];
+          overlays = [
+            livebook.overlays.default
+            devshell.overlays.default
+          ];
         };
       in
       {

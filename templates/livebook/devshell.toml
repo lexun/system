@@ -4,9 +4,13 @@ motd = ""
 packages = [ "livebook" ]
 
 [[env]]
+name = "LIVEBOOK_NODE"
+eval = "livebook@localhost"
+
+[[env]]
 name = "LIVEBOOK_HOME"
 eval = "$PWD"
 
 [[env]]
 name = "LIVEBOOK_DATA_PATH"
-eval = "$PWD/.livebook"
+eval = "$PWD/.local/livebook"

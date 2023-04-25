@@ -2,8 +2,8 @@
 
 let overlay = import ./overlay.nix;
 in
-{ inherit overlay; } //
+{ overlays.default = overlay; } //
 flake-utils.lib.eachDefaultSystem (system:
-  let pkgs = import nixpkgs { inherit system overlay; };
+  let pkgs = import nixpkgs { inherit system; };
   in { packages = overlay self pkgs; }
 )
