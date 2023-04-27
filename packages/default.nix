@@ -1,8 +1,11 @@
+{ inputs, ... }:
+
 let overlay = import ./overlay.nix;
 in
-
 {
-  perSystem = { config, self, pkgs, ... }: {
+  imports = [ inputs.flake-parts.flakeModules.easyOverlay ];
+  perSystem = { config, pkgs, self, ... }: {
+    overlayAttrs = config.packages;
     packages = overlay self pkgs;
   };
 }
