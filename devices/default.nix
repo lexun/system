@@ -8,11 +8,11 @@ in
 {
   flake = {
     darwinConfigurations = {
-      "Lukes-Personal-MBP" = import ./personal-macbook.nix { inherit darwin home-manager; };
-      "Lukes-Work-MBP" = import ./work-macbook.nix { inherit darwin home-manager; };
+      "LukesPersonalMBP" = import ./personal-macbook.nix { inherit darwin home-manager; };
+      "LukesWorkMBP" = import ./work-macbook.nix { inherit darwin home-manager; };
     };
     nixosConfigurations = {
-      "Lukes-NixOS-RB" = import ./nixos-laptop { inherit nixpkgs home-manager; };
+      "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager; };
     };
   };
 }

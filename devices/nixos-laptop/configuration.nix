@@ -4,7 +4,7 @@
   boot.initrd.luks.devices."luks-62d65fd2-4119-4f54-8908-c4956df9596d".device = "/dev/disk/by-uuid/62d65fd2-4119-4f54-8908-c4956df9596d";
   boot.initrd.luks.devices."luks-62d65fd2-4119-4f54-8908-c4956df9596d".keyFile = "/crypto_keyfile.bin";
 
-  networking.hostName = "Lukes-NixOS-RB";
+  networking.hostName = "LukesNixosRB";
 
   environment.systemPackages = with pkgs; [
     (pkgs.writeShellScriptBin "nvidia-offload" ''
