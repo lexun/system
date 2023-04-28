@@ -11,7 +11,7 @@
   users.users.luke = {
     isNormalUser = true;
     description = "Luke Barbuto";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
     packages = with pkgs; [
       brave
       obsidian
@@ -59,6 +59,8 @@
   programs._1password-gui.enable = true;
   programs._1password-gui.polkitPolicyOwners = [ "luke" ];
   programs.ssh.startAgent = true;
+
+  virtualisation.docker.enable = true;
 
   boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
   boot.loader.efi.canTouchEfiVariables = true;
