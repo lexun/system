@@ -11,6 +11,7 @@ darwin.lib.darwinSystem {
         "dbvisualizer"
         "hex-fiend"
         "imhex"
+        "kap"
         "tandem"
       ];
       home-manager.users.luke = {
