@@ -15,6 +15,7 @@ darwin.lib.darwinSystem {
         "tandem"
       ];
       home-manager.users.luke = {
+        programs.go.enable = true;
         programs.zsh = {
           profileExtra = ''eval "$(/opt/homebrew/bin/brew shellenv)"'';
         };
