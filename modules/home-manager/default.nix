@@ -14,6 +14,7 @@
   home = {
     packages = with pkgs; [
       elixir
+      fzf
       gnupg
       navi
       nixpkgs-fmt
