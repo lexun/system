@@ -23,11 +23,18 @@
     "zoom"
   ];
 
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-    "repl-flake"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "flakes"
+      "nix-command"
+      "repl-flake"
+    ];
+
+    trusted-users = [
+      "root"
+      "luke"
+    ];
+  };
 
   nixpkgs.config.allowUnfree = true;
 
