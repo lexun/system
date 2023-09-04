@@ -3,7 +3,6 @@
 {
   imports = [
     (import ./one-password.nix)
-    (import ./vscode)
   ];
 
   nixpkgs = {
@@ -20,7 +19,6 @@
       nixpkgs-fmt
       nodePackages.prettier
       tree
-      vscode-update-exts
       watch
     ];
 
@@ -75,10 +73,6 @@
           cd ~/.system \
             && ${update-command} switch --flake . \
             && exec $SHELL
-        '';
-        update-code-extensions = ''
-          vscode-update-exts \
-            > ~/.system/modules/home-manager/vscode/extensions.nix
         '';
       };
     oh-my-zsh = {
