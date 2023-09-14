@@ -12,6 +12,7 @@
 
   home = {
     packages = with pkgs; [
+      cachix
       elixir
       fzf
       gnupg
