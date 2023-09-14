@@ -15,6 +15,10 @@
       elixir
       fzf
       gnupg
+      k9s
+      kube3d
+      kubectl
+      kubectx
       navi
       nixpkgs-fmt
       nodePackages.prettier
