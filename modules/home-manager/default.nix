@@ -20,6 +20,7 @@
       kube3d
       kubectl
       kubectx
+      livebook
       navi
       nixpkgs-fmt
       nodePackages.prettier
