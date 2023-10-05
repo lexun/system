@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# @arg target![app|services]
+main() {
+	[ $argc_target == "app" ] && start_app
+	[ $argc_target == "services" ] && devenv up
+}
+
+start_app() {
+	if pgrep -x "postgres" >/dev/null; then
+		elixir --name "$APP_NAME@127.0.0.1" --cookie local-dev -S mix phx.server
+	else
+		echo "Postgres is not running."
+		echo "Please start dependent services with 'dev start services' and try again."
+		exit 1
+	fi
+}
+
+eval "$(argc --argc-eval "${BASH_SOURCE[0]}" "$@")"
