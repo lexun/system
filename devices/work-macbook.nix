@@ -14,6 +14,7 @@ darwin.lib.darwinSystem {
         "imhex"
         "kap"
         "tandem"
+        "tuple"
       ];
       home-manager.users.luke = {
         programs.go.enable = true;
