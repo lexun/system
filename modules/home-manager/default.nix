@@ -15,7 +15,7 @@
       cachix
       cargo
       clippy
-      elixir
+      elixir_1_16
       fzf
       gnupg
       k9s
