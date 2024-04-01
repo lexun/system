@@ -32,6 +32,10 @@
       watch
     ];
 
+    sessionPath = [
+      "$HOME/.local/bin"
+    ];
+
     sessionVariables = {
       EDITOR = "nvim";
     };
