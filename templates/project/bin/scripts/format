@@ -1,19 +1,14 @@
 #!/usr/bin/env bash
 
 main() {
-	echo "Step 1: Formatting Elixir files with mix"
-	mix format
-
-	echo "Step 2: Formatting Nix files with nix fmt"
+	echo "Formatting Nix files with nix fmt..."
 	nix fmt --no-warn-dirty
 
-	echo "Step 3: Formatting Markdown files with prettier"
+	echo "Formatting Markdown files with prettier..."
 	prettier --write "**/*.md"
 
-	echo "Step 4: Formatting Shell scripts with shfmt"
+	echo "Formatting Bash scripts with shfmt..."
 	find . -type f \( -iname "*.sh" -o -iname "*.bash" \) -exec shfmt -w {} \;
-
-	echo "Step 5: Formatting Bash scripts without extension"
 	find . -type f ! -name "*.*" | while read -r file; do
 		if grep -q "^#!/usr/bin/env bash" "$file"; then
 			shfmt -w "$file"

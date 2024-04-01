@@ -23,7 +23,7 @@ if ! command -v direnv &>/dev/null; then
 	[Yy]*)
 		nix profile install nixpkgs#direnv
 		echo "Direnv installed."
-		echo -e "\e[33mPlease follow the instructions on https://direnv.net/docs/hook.html to set up the shell hook.\e[0m"
+		echo $'\e[33m'Please follow the instructions on https://direnv.net/docs/hook.html to set up the shell hook.$'\e[0m'
 		exit 0
 		;;
 	*)
@@ -41,10 +41,10 @@ fi
 
 # Activate devenv shell if not yet active
 if [[ -z "${DEVENV_ROOT}" ]]; then
-	if [[ "$1" != "activate" ]] && [[ "$1" != "configure" ]]; then
-		echo -e "\e[35m\e[1mwarning:\e[0m devenv inactive - activating temporary shell..."
-		echo "  run 'dev activate' to enter a persistent shell, or"
-		echo "  run 'dev configure --auto-activate=true' to always activate with direnv"
+	if [[ "$1" != "shell" ]] && [[ "$1" != "configure" ]]; then
+		echo $'\e[35m\e[1m'warning:$'\e[0m' devenv inactive - activating temporary shell...
+		echo "  run 'dev shell' to enter a persistent shell, or"
+		echo "  run 'dev configure --auto-activate=true' to enter the shell automatically with direnv (recommended)"
 		echo ""
 	fi
 	nix develop . --no-warn-dirty --impure -c $SHELL -c "dev $(printf '\"%s\" ' "${@}")"

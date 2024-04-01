@@ -4,9 +4,9 @@
       path = ./livebook;
       description = "Provides a development environment for Livebook";
     };
-    phoenix = {
-      path = ./phoenix;
-      description = "Provides a development environment for Phoenix projects";
+    project = {
+      path = ./project;
+      description = "Provides a development environment for generic projects";
       welcomeText = ''
         # The dev command must be allowed to execute
 
