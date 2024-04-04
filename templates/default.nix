@@ -11,7 +11,7 @@
         # The dev command must be allowed to execute
 
         ```sh
-          chmod +x scripts/bin/dev
+          chmod +x bin/dev
         ```
 
         # Merge .gitignore files or run the following command if there is a conflict
