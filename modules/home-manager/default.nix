@@ -87,6 +87,7 @@
       {
         update = ''
           cd ~/.system \
+            && nix-channel --update \
             && ${update-command} switch --flake . \
             && exec $SHELL
         '';

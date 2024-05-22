@@ -5,6 +5,7 @@
 
   home-manager.users.luke = ../home-manager;
   home-manager.useUserPackages = true;
+  home-manager.backupFileExtension = "rebuild";
 
   homebrew.enable = true;
   homebrew.casks = [
