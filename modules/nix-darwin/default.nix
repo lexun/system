@@ -13,6 +13,7 @@
     "1password"
     "beekeeper-studio"
     "brave-browser"
+    "chatgpt"
     "discord"
     "docker"
     "iterm2"
