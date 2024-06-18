@@ -1,7 +1,7 @@
 self: super:
 
 let
-  erlang = super.erlangR26;
+  erlang = super.erlang_26;
   beamPackages = super.beam.packagesWith erlang;
 in
 
