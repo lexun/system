@@ -22,6 +22,8 @@
     "raycast"
     "slack"
     "spotify"
+    "wezterm"
+    "zed"
     "zoom"
   ];
 
