@@ -15,14 +15,13 @@
       cachix
       cargo
       clippy
-      elixir_1_16
+      elixir_1_17
       fzf
       gnupg
       k9s
       kube3d
       kubectl
       kubectx
-      livebook
       navi
       nixpkgs-fmt
       nodePackages.prettier
