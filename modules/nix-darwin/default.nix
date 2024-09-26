@@ -14,6 +14,7 @@
     "beekeeper-studio"
     "brave-browser"
     "chatgpt"
+    "cursor"
     "discord"
     "docker"
     "epic-games"

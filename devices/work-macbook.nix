@@ -8,7 +8,6 @@ darwin.lib.darwinSystem {
     {
       homebrew.casks = [
         "amazon-workspaces"
-        "cursor"
         "dbvisualizer"
         "hex-fiend"
         "imhex"
