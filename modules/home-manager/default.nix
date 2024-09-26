@@ -71,6 +71,22 @@
     controlPath = "none";
   };
 
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      return {
+        keys = {
+          -- Bind cmd-k to clear the entire scrollback and screen
+          {
+            key = 'k',
+            mods = 'CMD',
+            action = wezterm.action.ClearScrollback 'ScrollbackAndViewport',
+          },
+        },
+      }
+    '';
+  };
+
   programs.zsh = {
     enable = true;
     localVariables = {

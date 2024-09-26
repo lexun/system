@@ -17,7 +17,6 @@
     "discord"
     "docker"
     "epic-games"
-    "iterm2"
     "obsidian"
     "protonvpn"
     "raycast"
