@@ -1,5 +1,5 @@
 {
-  description = "Description for the project";
+  description = "Project Description";
 
   inputs = {
     nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
@@ -32,10 +32,12 @@
         devenv.shells =
           let rootPath = builtins.readFile inputs.devenv-root.outPath;
           in pkgs.lib.optionalAttrs (rootPath != "") {
-            default = {
+            default = rec {
               devenv.root = rootPath;
-              name = "app_name";
               imports = [ ];
+              name = "AppName";
+              env.APP_NAME = name;
+              packages = with pkgs; [ just ];
             };
           };
       };
