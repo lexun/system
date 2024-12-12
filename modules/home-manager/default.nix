@@ -53,6 +53,9 @@
     userName = "Luke Barbuto";
     userEmail = "luke.barbuto@gmail.com";
     lfs.enable = true;
+    ignores = [
+      ".vscode"
+    ];
     extraConfig = {
       init = {
         defaultBranch = "main";
