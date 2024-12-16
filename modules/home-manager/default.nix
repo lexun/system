@@ -22,6 +22,7 @@
       kube3d
       kubectl
       kubectx
+      mob
       navi
       nixpkgs-fmt
       nodePackages.prettier
