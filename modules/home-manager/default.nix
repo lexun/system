@@ -105,6 +105,7 @@
       in
       {
         update = ''
+          rm ~/.ssh/config.rebuild
           cd ~/.system \
             && nix-channel --update \
             && ${update-command} switch --flake . \
