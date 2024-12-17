@@ -1,0 +1,56 @@
+diff --git a/git-coauthor b/git-coauthor
+index 53e0bf2..01ab45a 100755
+--- a/git-coauthor
++++ b/git-coauthor
+@@ -5,7 +5,10 @@
+ #
+ # I live at https://github.com/simoleone/git-coauthor
+
+-readonly COMMIT_TEMPLATE="${HOME}/.git_coauthor_commit_template"
++readonly COMMIT_TEMPLATE="${HOME}/.config/git-coauthor/template"
++readonly GIT_CONFIG_FILE="${HOME}/.config/git-coauthor/config"
++mkdir -p "$(dirname "${COMMIT_TEMPLATE}")"
++mkdir -p "$(dirname "${GIT_CONFIG_FILE}")"
+
+ function err() {
+   echo "$@" >&2
+@@ -19,7 +22,7 @@ function author_create() {
+     return 1
+   fi
+
+-  git config --global --add coauthor.author "${author}"
++  git config --file "${GIT_CONFIG_FILE}" --add coauthor.author "${author}"
+ }
+
+ function author_delete() {
+@@ -28,11 +31,11 @@ function author_delete() {
+   local full_author
+   full_author="$(author_match "${query}")"
+   [[ $? -eq 0 ]] || { err "no authors deleted" && return 1; }
+-  git config --global --unset-all coauthor.author "${full_author}"
++  git config --file "${GIT_CONFIG_FILE}" --unset-all coauthor.author "${full_author}"
+ }
+
+ function author_list() {
+-  git config --global --get-all coauthor.author
++  git config --file "${GIT_CONFIG_FILE}" --get-all coauthor.author
+ }
+
+ function author_exact_match() {
+@@ -82,14 +85,14 @@ function setup_pair() {
+
+   commit_template="$(echo -e "${commit_template}" | sort)"
+   echo -e "\n${commit_template}" > "${COMMIT_TEMPLATE}"
+-  git config --global commit.template "${COMMIT_TEMPLATE}"
++  git config --file "${GIT_CONFIG_FILE}" commit.template "${COMMIT_TEMPLATE}"
+
+   display_current
+ }
+
+ function solo() {
+   echo "" > "${COMMIT_TEMPLATE}"
+-  git config --global --unset commit.template
++  git config --file "${GIT_CONFIG_FILE}" --unset commit.template
+   echo "now committing solo"
+ }
+

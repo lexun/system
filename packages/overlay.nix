@@ -1,1 +1,3 @@
-self: super: { }
+final: prev: {
+  git-coauthor = prev.callPackage ./git-coauthor { };
+}

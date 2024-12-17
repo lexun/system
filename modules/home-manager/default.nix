@@ -17,6 +17,7 @@
       clippy
       elixir_1_17
       fzf
+      git-coauthor
       gnupg
       k9s
       kube3d
@@ -56,6 +57,9 @@
     lfs.enable = true;
     ignores = [
       ".vscode"
+    ];
+    includes = [
+      { path = "~/.config/git-coauthor/config"; }
     ];
     extraConfig = {
       init = {
