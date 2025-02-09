@@ -21,11 +21,9 @@
     "obsidian"
     "protonvpn"
     "raycast"
-    "slack"
     "spotify"
     "wezterm"
     "zed"
-    "zoom"
   ];
 
   nix.settings = {
