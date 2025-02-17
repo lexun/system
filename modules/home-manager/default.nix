@@ -150,7 +150,6 @@
         staged = "";
         stashed = "";
         untracked = "";
-        up_to_date = "";
       };
     };
   };
@@ -164,6 +163,7 @@
     enable = true;
     extraConfig = ''
       return {
+        default_prog = { '${pkgs.nushell}/bin/nu' },
         keys = {
           -- Bind cmd-k to clear the entire scrollback and screen
           {
