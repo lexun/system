@@ -92,12 +92,15 @@
       update = "system-update";
       gaa = "git add --all";
       gap = "git add --patch";
+      gb = "git branch";
+      gba = "git branch -a";
       gc = "git commit";
       gca = "git commit --amend";
       gcan = "git commit --amend --no-edit";
       gcana = "git commit --amend --no-edit --all";
       gcb = "git checkout -b";
-      gcm = "git commit -m";
+      gcm = "git checkout (if (git rev-parse --verify main | complete).exit_code == 0 { 'main' } else { 'master' })";
+      gcmsg = "git commit -m";
       gco = "git checkout";
       gcp = "git cherry-pick";
       gd = "git diff";
