@@ -80,6 +80,13 @@
     enable = true;
     envFile.text = ''
       $env.config.show_banner = false
+      $env.PATH = (
+        $env.PATH
+        | split row (char esep)
+        | append "/usr/local/bin"
+        | append "/run/current-system/sw/bin"
+        | append "/etc/profiles/per-user/luke/bin"
+      )
     '';
     shellAliases = {
       update = "system-update";
