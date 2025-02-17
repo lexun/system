@@ -7,7 +7,7 @@ in
 home-manager.lib.homeManagerConfiguration {
   inherit pkgs;
   extraSpecialArgs = {
-    codespaces = true;
+    onePasswordEnabled = false;
   };
   modules = [
     ../modules/home-manager
