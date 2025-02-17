@@ -115,10 +115,44 @@
     };
   };
 
-  programs.oh-my-posh = {
+  programs.starship = {
     enable = true;
+    enableZshIntegration = true;
     enableNushellIntegration = true;
-    useTheme = "huvix";
+
+    settings = {
+      format = "$directory[|](red)$git_branch$git_status$character";
+
+      character = {
+        success_symbol = "[⇒](cyan)";
+        error_symbol = "[⇒](red)";
+      };
+
+      directory = {
+        style = "cyan";
+        format = "[$path]($style)";
+      };
+
+      git_branch = {
+        format = "[$branch](green) ";
+      };
+
+      git_status = {
+        format = "[$all_status](yellow)";
+        style = "green";
+        modified = "⚡️";
+        ahead = "";
+        behind = "";
+        conflicted = "";
+        deleted = "";
+        diverged = "";
+        renamed = "";
+        staged = "";
+        stashed = "";
+        untracked = "";
+        up_to_date = "";
+      };
+    };
   };
 
   programs.ssh = {
