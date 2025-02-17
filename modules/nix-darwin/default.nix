@@ -31,7 +31,6 @@
     experimental-features = [
       "flakes"
       "nix-command"
-      "repl-flake"
     ];
 
     trusted-users = [
@@ -46,13 +45,11 @@
 
   security.pam.enableSudoTouchIdAuth = true;
 
-  services.nix-daemon.enable = true;
-
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 
   system.defaults.dock.autohide = true;
   system.defaults.NSGlobalDomain."com.apple.swipescrolldirection" = false;
 
-  system.stateVersion = 4;
+  system.stateVersion = 6;
 }
