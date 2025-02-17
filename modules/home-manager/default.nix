@@ -12,6 +12,7 @@
 
   home = {
     packages = with pkgs; [
+      (callPackage ./system-update.nix { })
       cachix
       fzf
       git-coauthor
@@ -81,6 +82,7 @@
       $env.config.show_banner = false
     '';
     shellAliases = {
+      update = "system-update";
       gaa = "git add --all";
       gap = "git add --patch";
       gc = "git commit";
@@ -181,22 +183,9 @@
     localVariables = {
       RPROMPT = null;
     };
-    shellAliases =
-      let
-        update-command =
-          if pkgs.stdenv.isLinux
-          then "sudo nixos-rebuild"
-          else "darwin-rebuild";
-      in
-      {
-        update = ''
-          rm ~/.ssh/config.rebuild
-          cd ~/.system \
-            && nix-channel --update \
-            && ${update-command} switch --flake . \
-            && exec $SHELL
-        '';
-      };
+    shellAliases = {
+      update = "system-update";
+    };
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
