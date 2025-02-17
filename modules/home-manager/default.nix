@@ -14,6 +14,7 @@
     packages = with pkgs; [
       (callPackage ./system-update.nix { })
       cachix
+      devenv
       fzf
       git-coauthor
       gnupg
@@ -22,7 +23,6 @@
       kubectl
       kubectx
       mob
-      navi
       nixpkgs-fmt
       nodePackages.prettier
       tree
