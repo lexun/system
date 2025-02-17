@@ -13,9 +13,6 @@
   home = {
     packages = with pkgs; [
       cachix
-      cargo
-      clippy
-      elixir_1_17
       fzf
       git-coauthor
       gnupg
@@ -27,8 +24,6 @@
       navi
       nixpkgs-fmt
       nodePackages.prettier
-      rustc
-      rustfmt
       tree
       watch
     ];
