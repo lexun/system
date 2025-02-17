@@ -14,5 +14,8 @@ in
     nixosConfigurations = {
       "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager; };
     };
+    homeConfigurations = {
+      "vscode" = import ./codespaces.nix { inherit nixpkgs home-manager; };
+    };
   };
 }

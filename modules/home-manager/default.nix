@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, codespaces ? false, ... }:
 
 {
-  imports = [
+  imports = lib.optional (!codespaces) [
     (import ./one-password.nix)
   ];
 
