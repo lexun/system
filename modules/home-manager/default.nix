@@ -109,6 +109,7 @@
       gl = "git pull";
       glg = "git log";
       glo = "git log --oneline";
+      gm = "git merge";
       gp = "git push";
       gpf = "git push --force";
       gpfl = "git push --force-with-lease";
