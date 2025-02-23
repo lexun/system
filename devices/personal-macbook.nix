@@ -5,5 +5,14 @@ darwin.lib.darwinSystem {
   modules = [
     home-manager.darwinModules.home-manager
     ../modules/nix-darwin
+    {
+      homebrew.casks = [
+        "audacity"
+        "blender"
+        "epic-games"
+        "godot"
+        "krita"
+      ];
+    }
   ];
 }

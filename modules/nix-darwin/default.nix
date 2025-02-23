@@ -18,7 +18,6 @@
     "cursor"
     "discord"
     "docker"
-    "epic-games"
     "obsidian"
     "protonvpn"
     "raycast"
