@@ -23,7 +23,7 @@
       kubectl
       kubectx
       mob
-      nixpkgs-fmt
+      nixfmt-rfc-style
       nodePackages.prettier
       tree
       watch
