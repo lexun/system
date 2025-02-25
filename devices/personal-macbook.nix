@@ -12,6 +12,7 @@ darwin.lib.darwinSystem {
         "epic-games"
         "godot"
         "krita"
+        "wacom-tablet"
       ];
     }
   ];
