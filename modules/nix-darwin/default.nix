@@ -24,6 +24,7 @@
     "godot"
     "krisp"
     "krita"
+    "nvidia-geforce-now"
     "obsidian"
     "protonvpn"
     "raycast"
