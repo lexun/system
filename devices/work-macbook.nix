@@ -20,6 +20,13 @@ darwin.lib.darwinSystem {
         programs.zsh = {
           profileExtra = ''eval "$(/opt/homebrew/bin/brew shellenv)"'';
         };
+        programs.nushell.envFile.text = ''
+          $env.PATH = (
+            $env.PATH
+            | split row (char esep)
+            | append "/opt/homebrew/bin"
+          )
+        '';
       };
     }
   ];
