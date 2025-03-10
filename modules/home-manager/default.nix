@@ -18,6 +18,7 @@
   home = {
     packages = with pkgs; [
       (callPackage ./system-update.nix { })
+      aichat
       cachix
       devenv
       difftastic
@@ -89,6 +90,7 @@
     enable = true;
     envFile.text = ''
       $env.config.show_banner = false
+      $env.SHELL = "${pkgs.nushell}/bin/nu"
       $env.PATH = (
         $env.PATH
         | split row (char esep)
@@ -99,6 +101,7 @@
     '';
     shellAliases = {
       update = "system-update";
+      ai = "aichat -e";
       gaa = "git add --all";
       gap = "git add --patch";
       gb = "git branch";
