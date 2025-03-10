@@ -1,4 +1,9 @@
-{ pkgs, lib, onePasswordEnabled, ... }:
+{
+  pkgs,
+  lib,
+  onePasswordEnabled,
+  ...
+}:
 
 {
   imports = lib.optionals (onePasswordEnabled) [
@@ -15,6 +20,7 @@
       (callPackage ./system-update.nix { })
       cachix
       devenv
+      difftastic
       fzf
       git-coauthor
       gnupg
@@ -67,6 +73,9 @@
       init = {
         defaultBranch = "main";
       };
+      diff = {
+        external = "difft";
+      };
     };
   };
 
@@ -108,6 +117,7 @@
       gf = "git fetch";
       gl = "git pull";
       glg = "git log";
+      glp = "git log -p --ext-diff";
       glo = "git log --oneline";
       gm = "git merge";
       gp = "git push";
@@ -118,7 +128,7 @@
       grbi = "git rebase -i";
       grbm = "git rebase main";
       grh = "git reset HEAD";
-      gs = "git show";
+      gs = "git show --ext-diff";
       gst = "git status";
       gsta = "git stash";
       gstp = "git stash pop";
