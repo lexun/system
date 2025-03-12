@@ -19,6 +19,7 @@
     packages = with pkgs; [
       (callPackage ./system-update.nix { })
       aichat
+      aider-chat
       cachix
       devenv
       difftastic
@@ -66,6 +67,7 @@
     lfs.enable = true;
     ignores = [
       ".vscode"
+      ".aider*"
     ];
     includes = [
       { path = "~/.config/git-coauthor/config"; }
