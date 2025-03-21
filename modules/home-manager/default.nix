@@ -125,11 +125,14 @@
       glp = "git log -p --ext-diff";
       glo = "git log --oneline";
       gm = "git merge";
+      gma = "git merge --abort";
       gp = "git push";
       gpf = "git push --force";
       gpfl = "git push --force-with-lease";
       gpsup = "git push --set-upstream origin HEAD";
       grb = "git rebase";
+      grba = "git rebase --abort";
+      grbc = "git rebase --continue";
       grbi = "git rebase -i";
       grbm = "git rebase main";
       grh = "git reset HEAD";
