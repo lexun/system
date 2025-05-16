@@ -21,6 +21,7 @@
       aichat
       aider-chat
       cachix
+      coder
       devenv
       difftastic
       fzf
