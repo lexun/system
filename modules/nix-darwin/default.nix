@@ -29,6 +29,7 @@
     "protonvpn"
     "raycast"
     "spotify"
+    "superwhisper"
     "wacom-tablet"
     "wezterm"
     "zed"
