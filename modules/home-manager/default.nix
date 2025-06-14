@@ -33,6 +33,7 @@
       kubectx
       mob
       nixfmt-rfc-style
+      nodejs_24
       nodePackages.prettier
       tree
       watch
