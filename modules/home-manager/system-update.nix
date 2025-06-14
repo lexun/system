@@ -5,11 +5,10 @@ writers.writeNuBin "system-update" ''
       rm -f ~/.ssh/config.rebuild
       cd ~/.system
       nix-channel --update
-      let update_command: string = if $nu.os-info.name == "linux" {
-          "sudo nixos-rebuild"
+      if $nu.os-info.name == "linux" {
+          exec sudo nixos-rebuild switch --flake .
       } else {
-          "darwin-rebuild"
+          exec sudo darwin-rebuild switch --flake .
       }
-      exec $update_command switch --flake .
   }
 ''

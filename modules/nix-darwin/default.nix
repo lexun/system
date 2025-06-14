@@ -53,6 +53,8 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  system.primaryUser = "luke";
+
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 
