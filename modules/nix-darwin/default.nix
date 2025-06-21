@@ -18,6 +18,7 @@
     "brave-browser"
     "chatgpt"
     "cursor"
+    "cyberduck"
     "discord"
     "docker"
     "epic-games"
