@@ -9,7 +9,6 @@ darwin.lib.darwinSystem {
       homebrew.casks = [
         "amazon-workspaces"
         "dbvisualizer"
-        "gather"
         "hex-fiend"
         "imhex"
         "kap"
