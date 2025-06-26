@@ -17,6 +17,7 @@
     "blender"
     "brave-browser"
     "chatgpt"
+    "claude"
     "cursor"
     "cyberduck"
     "discord"
