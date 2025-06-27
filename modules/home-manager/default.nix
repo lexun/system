@@ -37,6 +37,7 @@
       nodejs_24
       nodePackages.prettier
       tree
+      uv
       watch
     ];
 
