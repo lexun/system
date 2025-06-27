@@ -21,7 +21,7 @@
     "cursor"
     "cyberduck"
     "discord"
-    "docker"
+    "docker-desktop"
     "epic-games"
     "godot"
     "krisp"
