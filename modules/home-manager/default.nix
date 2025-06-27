@@ -21,6 +21,7 @@
       aichat
       aider-chat
       cachix
+      claude-code
       coder
       devenv
       difftastic
