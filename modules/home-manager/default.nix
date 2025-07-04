@@ -197,19 +197,30 @@
   programs.wezterm = {
     enable = true;
     extraConfig = ''
+      local wezterm = require 'wezterm'
+
       return {
-        default_prog = { '${pkgs.nushell}/bin/nu' },
-        keys = {
-          -- Bind cmd-k to clear the entire scrollback and screen
-          {
-            key = 'k',
-            mods = 'CMD',
-            action = wezterm.action.ClearScrollback 'ScrollbackAndViewport',
-          },
-        },
+        default_prog = { '${pkgs.zellij}/bin/zellij' },
+        enable_tab_bar = false,
+        window_close_confirmation = "NeverPrompt",
       }
     '';
   };
+
+  programs.zellij = {
+    enable = true;
+  };
+
+  xdg.configFile."zellij/config.kdl".text = ''
+    default_shell "${pkgs.nushell}/bin/nu"
+    show_startup_tips false
+
+    keybinds {
+      normal {
+        bind "Ctrl k" { WriteChars "clear"; Write 10; }
+      }
+    }
+  '';
 
   programs.zsh = {
     enable = true;
