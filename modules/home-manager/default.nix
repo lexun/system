@@ -52,6 +52,20 @@
     stateVersion = "23.05";
   };
 
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      terminal.shell = {
+        program = "${pkgs.zellij}/bin/zellij";
+      };
+      window = {
+        dynamic_padding = true;
+        option_as_alt = "OnlyLeft";
+        startup_mode = "Maximized";
+      };
+    };
+  };
+
   programs.carapace = {
     enable = true;
     enableNushellIntegration = true;
@@ -194,33 +208,13 @@
     controlPath = "none";
   };
 
-  programs.wezterm = {
-    enable = true;
-    extraConfig = ''
-      local wezterm = require 'wezterm'
-
-      return {
-        default_prog = { '${pkgs.zellij}/bin/zellij' },
-        enable_tab_bar = false,
-        window_close_confirmation = "NeverPrompt",
-      }
-    '';
-  };
-
   programs.zellij = {
     enable = true;
+    settings = {
+      default_shell = "${pkgs.nushell}/bin/nu";
+      show_startup_tips = false;
+    };
   };
-
-  xdg.configFile."zellij/config.kdl".text = ''
-    default_shell "${pkgs.nushell}/bin/nu"
-    show_startup_tips false
-
-    keybinds {
-      normal {
-        bind "Ctrl k" { WriteChars "clear"; Write 10; }
-      }
-    }
-  '';
 
   programs.zsh = {
     enable = true;

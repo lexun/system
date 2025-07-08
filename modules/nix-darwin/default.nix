@@ -12,6 +12,7 @@
   homebrew.casks = [
     "1password-cli"
     "1password"
+    "alacritty"
     "audacity"
     "beekeeper-studio"
     "blender"
@@ -33,7 +34,6 @@
     "spotify"
     "superwhisper"
     "wacom-tablet"
-    "wezterm"
     "zed"
   ];
 
