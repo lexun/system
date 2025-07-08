@@ -19,7 +19,6 @@
     packages = with pkgs; [
       (callPackage ./system-update.nix { })
       aichat
-      aider-chat
       cachix
       claude-code
       coder
