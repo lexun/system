@@ -1,3 +1,6 @@
 /outputs
 /result
 /source
+
+# Claude Code local configuration
+.claude/settings.local.json
