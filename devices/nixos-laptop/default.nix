@@ -1,4 +1,8 @@
-{ home-manager, nixpkgs }:
+{
+  home-manager,
+  nixpkgs,
+  nixvim,
+}:
 
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
@@ -8,8 +12,9 @@ nixpkgs.lib.nixosSystem {
     ./hardware.nix
     home-manager.nixosModules.home-manager
     {
-      home-manager.users.luke = import ../../modules/home-manager;
+      home-manager.users.luke = ../../modules/home-manager;
       home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs.nixvim = nixvim;
     }
   ];
 }

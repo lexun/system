@@ -2,13 +2,18 @@
   pkgs,
   lib,
   onePasswordEnabled,
+  nixvim,
   ...
 }:
 
 {
-  imports = lib.optionals (onePasswordEnabled) [
-    (import ./one-password.nix)
-  ];
+  imports =
+    lib.optionals (onePasswordEnabled) [
+      (import ./one-password.nix)
+    ]
+    ++ [
+      nixvim.homeManagerModules.nixvim
+    ];
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -99,10 +104,21 @@
     };
   };
 
-  programs.neovim = {
+  programs.nixvim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
+
+    # Basic nixvim configuration
+    colorschemes.catppuccin.enable = true;
+
+    plugins = {
+      lualine.enable = true;
+      nvim-tree.enable = true;
+      telescope.enable = true;
+      treesitter.enable = true;
+      web-devicons.enable = true;
+    };
   };
 
   programs.nushell = {

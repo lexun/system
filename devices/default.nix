@@ -3,19 +3,20 @@
 let inherit (inputs)
   darwin
   home-manager
-  nixpkgs;
+  nixpkgs
+  nixvim;
 in
 {
   flake = {
     darwinConfigurations = {
-      "LukesPersonalMBP" = import ./personal-macbook.nix { inherit darwin home-manager; };
-      "LukesWorkMBP" = import ./work-macbook.nix { inherit darwin home-manager; };
+      "LukesPersonalMBP" = import ./personal-macbook.nix { inherit darwin home-manager nixvim; };
+      "LukesWorkMBP" = import ./work-macbook.nix { inherit darwin home-manager nixvim; };
     };
     nixosConfigurations = {
-      "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager; };
+      "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager nixvim; };
     };
     homeConfigurations = {
-      "vscode" = import ./codespaces.nix { inherit nixpkgs home-manager; };
+      "vscode" = import ./codespaces.nix { inherit nixpkgs home-manager nixvim; };
     };
   };
 }

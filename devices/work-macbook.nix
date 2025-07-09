@@ -1,4 +1,4 @@
-{ darwin, home-manager }:
+{ darwin, home-manager, nixvim }:
 
 darwin.lib.darwinSystem {
   system = "aarch64-darwin";
@@ -30,4 +30,9 @@ darwin.lib.darwinSystem {
       };
     }
   ];
+  specialArgs = {
+    inputs = {
+      inherit nixvim;
+    };
+  };
 }

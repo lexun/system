@@ -6,7 +6,10 @@
   home-manager.users.luke = ../home-manager;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "rebuild";
-  home-manager.extraSpecialArgs.onePasswordEnabled = true;
+  home-manager.extraSpecialArgs = {
+    onePasswordEnabled = true;
+    nixvim = inputs.nixvim;
+  };
 
   homebrew.enable = true;
   homebrew.casks = [
