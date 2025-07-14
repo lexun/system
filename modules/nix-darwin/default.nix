@@ -33,6 +33,7 @@
     "raycast"
     "spotify"
     "superwhisper"
+    "telegram"
     "wacom-tablet"
     "zed"
   ];
