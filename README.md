@@ -40,6 +40,7 @@ Finally, enable the 1password ssh agent and CLI integration in the 1password dev
 For Nix-powered coder instances, setup is simple:
 
 ```bash
+nix run nixpkgs#cachix -- use lexun
 nix run github:lexun/system#homeConfigurations.coder.activationPackage
 ```
 
@@ -56,4 +57,3 @@ To apply changes to the configuration:
 ```
 update
 ```
-
