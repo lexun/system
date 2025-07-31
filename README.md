@@ -35,6 +35,14 @@ nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch 
 
 Finally, enable the 1password ssh agent and CLI integration in the 1password developer settings.
 
+## Coder Instances
+
+For Nix-powered coder instances, setup is simple:
+
+```bash
+nix run github:lexun/system#homeConfigurations.coder.activationPackage
+```
+
 ## Maintenance
 
 To update Nix dependencies:

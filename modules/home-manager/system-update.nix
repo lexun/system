@@ -2,11 +2,20 @@
 
 writers.writeNuBin "system-update" ''
   def main [] {
-      rm -f ~/.ssh/config.rebuild
-      cd ~/.system
       nix-channel --update
+      rm -f ~/.ssh/config.rebuild
+
+      if not ("~/.system" | path exists) {
+          git clone https://github.com/lexun/system ~/.system
+      }
+      cd ~/.system
+
       if $nu.os-info.name == "linux" {
-          exec sudo nixos-rebuild switch --flake .
+          if $env.USER == "coder" {
+              exec nix run .#homeConfigurations.coder.activationPackage
+          } else {
+              exec sudo nixos-rebuild switch --flake .
+          }
       } else {
           exec sudo darwin-rebuild switch --flake .
       }

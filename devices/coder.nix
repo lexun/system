@@ -12,8 +12,8 @@ home-manager.lib.homeManagerConfiguration {
   modules = [
     ../modules/home-manager
     {
-      home.username = "vscode";
-      home.homeDirectory = pkgs.lib.mkForce "/home/vscode";
+      home.username = "coder";
+      home.homeDirectory = pkgs.lib.mkForce "/home/coder";
     }
   ];
 }

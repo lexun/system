@@ -1,9 +1,11 @@
 { inputs, ... }:
 
-let inherit (inputs)
-  darwin
-  home-manager
-  nixpkgs;
+let
+  inherit (inputs)
+    darwin
+    home-manager
+    nixpkgs
+    ;
 in
 {
   flake = {
@@ -15,7 +17,7 @@ in
       "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager; };
     };
     homeConfigurations = {
-      "vscode" = import ./codespaces.nix { inherit nixpkgs home-manager; };
+      "coder" = import ./coder.nix { inherit nixpkgs home-manager; };
     };
   };
 }
