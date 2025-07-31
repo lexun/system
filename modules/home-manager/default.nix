@@ -25,6 +25,7 @@
       devenv
       difftastic
       fzf
+      gh
       git-coauthor
       gnupg
       k9s
