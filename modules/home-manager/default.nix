@@ -211,6 +211,28 @@
   programs.ssh = {
     enable = true;
     controlPath = "none";
+    matchBlocks = lib.optionalAttrs pkgs.stdenv.isDarwin {
+      "coder.*" = {
+        forwardAgent = true;
+        extraOptions = {
+          ConnectTimeout = "0";
+          StrictHostKeyChecking = "no";
+          UserKnownHostsFile = "/dev/null";
+          LogLevel = "ERROR";
+        };
+        proxyCommand = "${pkgs.coder}/bin/coder --global-config \"/Users/luke/Library/Application Support/coderv2\" ssh --stdio --ssh-host-prefix coder. %h";
+      };
+      "*.coder" = {
+        forwardAgent = true;
+        extraOptions = {
+          ConnectTimeout = "0";
+          StrictHostKeyChecking = "no";
+          UserKnownHostsFile = "/dev/null";
+          LogLevel = "ERROR";
+        };
+        proxyCommand = "${pkgs.coder}/bin/coder --global-config \"/Users/luke/Library/Application Support/coderv2\" ssh --stdio --hostname-suffix coder %h";
+      };
+    };
   };
 
   programs.zellij = {
