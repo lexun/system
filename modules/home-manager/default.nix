@@ -59,7 +59,10 @@
     settings = {
       terminal.shell = {
         program = "${pkgs.nushell}/bin/nu";
-        args = ["-e" "zellij attach --create main"];
+        args = [
+          "-e"
+          "zellij attach --create main"
+        ];
       };
       window = {
         dynamic_padding = true;
@@ -68,8 +71,6 @@
       };
     };
   };
-
-  programs.bash.enable = !pkgs.stdenv.isDarwin;
 
   programs.carapace = {
     enable = true;
