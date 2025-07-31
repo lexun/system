@@ -2,7 +2,10 @@
 
 let
   system = "x86_64-linux";
-  pkgs = nixpkgs.legacyPackages.${system};
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
 in
 home-manager.lib.homeManagerConfiguration {
   inherit pkgs;
@@ -15,7 +18,6 @@ home-manager.lib.homeManagerConfiguration {
     {
       home.username = "coder";
       home.homeDirectory = pkgs.lib.mkForce "/home/coder";
-      nixpkgs.config.allowUnfree = true;
       home.packages = with pkgs; [
         _1password-cli
       ];
