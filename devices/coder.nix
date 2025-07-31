@@ -20,6 +20,7 @@ home-manager.lib.homeManagerConfiguration {
       home.homeDirectory = pkgs.lib.mkForce "/home/coder";
       home.packages = with pkgs; [
         _1password-cli
+        less
       ];
     }
   ];
