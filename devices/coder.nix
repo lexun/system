@@ -15,6 +15,10 @@ home-manager.lib.homeManagerConfiguration {
     {
       home.username = "coder";
       home.homeDirectory = pkgs.lib.mkForce "/home/coder";
+      nixpkgs.config.allowUnfree = true;
+      home.packages = with pkgs; [
+        _1password-cli
+      ];
     }
   ];
 }
