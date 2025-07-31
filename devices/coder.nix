@@ -8,6 +8,7 @@ home-manager.lib.homeManagerConfiguration {
   inherit pkgs;
   extraSpecialArgs = {
     onePasswordEnabled = false;
+    enableSshConfig = false;
   };
   modules = [
     ../modules/home-manager

@@ -7,6 +7,7 @@
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "rebuild";
   home-manager.extraSpecialArgs.onePasswordEnabled = true;
+  home-manager.extraSpecialArgs.enableSshConfig = true;
 
   homebrew.enable = true;
   homebrew.casks = [

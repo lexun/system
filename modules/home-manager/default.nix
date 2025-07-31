@@ -2,6 +2,7 @@
   pkgs,
   lib,
   onePasswordEnabled,
+  enableSshConfig ? true,
   ...
 }:
 
@@ -209,7 +210,7 @@
   };
 
   programs.ssh = {
-    enable = true;
+    enable = enableSshConfig;
     controlPath = "none";
     matchBlocks = lib.optionalAttrs pkgs.stdenv.isDarwin {
       "coder.*" = {

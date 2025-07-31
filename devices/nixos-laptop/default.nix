@@ -11,6 +11,7 @@ nixpkgs.lib.nixosSystem {
       home-manager.users.luke = import ../../modules/home-manager;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs.onePasswordEnabled = false;
+      home-manager.extraSpecialArgs.enableSshConfig = true;
     }
   ];
 }
