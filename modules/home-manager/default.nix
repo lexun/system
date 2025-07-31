@@ -43,6 +43,7 @@
 
     sessionPath = [
       "$HOME/.local/bin"
+      "$HOME/.nix-profile/bin"
     ];
 
     sessionVariables = {
@@ -65,6 +66,8 @@
       };
     };
   };
+
+  programs.bash.enable = !pkgs.stdenv.isDarwin;
 
   programs.carapace = {
     enable = true;
@@ -116,7 +119,8 @@
         | split row (char esep)
         | append "/usr/local/bin"
         | append "/run/current-system/sw/bin"
-        | append "/etc/profiles/per-user/luke/bin"
+        | append $"/etc/profiles/per-user/($env.USER)/bin"
+        | append $"($env.HOME)/.nix-profile/bin"
       )
     '';
     shellAliases = {
