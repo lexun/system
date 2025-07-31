@@ -30,7 +30,7 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   services.xserver.xkbOptions = "caps:escape";
 
@@ -42,7 +42,6 @@
   networking.networkmanager.enable = true;
   services.printing.enable = true;
 
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
 
   services.pipewire = {
