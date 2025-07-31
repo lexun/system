@@ -9,6 +9,7 @@ writers.writeNuBin "system-update" ''
           git clone https://github.com/lexun/system ~/.system
       }
       cd ~/.system
+      git pull
 
       if $nu.os-info.name == "linux" {
           if $env.USER == "coder" {
