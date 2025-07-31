@@ -57,7 +57,8 @@
     enable = true;
     settings = {
       terminal.shell = {
-        program = "${pkgs.zellij}/bin/zellij";
+        program = "${pkgs.nushell}/bin/nu";
+        args = ["-e" "zellij attach --create main"];
       };
       window = {
         dynamic_padding = true;
