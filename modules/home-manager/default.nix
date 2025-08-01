@@ -61,7 +61,7 @@
         program = "${pkgs.nushell}/bin/nu";
         args = [
           "-e"
-          "zellij attach --create main"
+          "zellij"
         ];
       };
       window = {
