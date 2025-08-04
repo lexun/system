@@ -44,6 +44,7 @@
       nixfmt-rfc-style
       nodejs_24
       nodePackages.prettier
+      ripgrep
       tree
       uv
       watch
