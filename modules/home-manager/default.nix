@@ -24,6 +24,7 @@
   home = {
     packages = with pkgs; [
       (callPackage ./system-update.nix { })
+      (callPackage ./zellij-session-manager.nix { })
       nerd-fonts.fira-code
       aichat
       cachix
@@ -67,7 +68,7 @@
         program = "${pkgs.nushell}/bin/nu";
         args = [
           "-e"
-          "zellij"
+          "zsm"
         ];
       };
       window = {
