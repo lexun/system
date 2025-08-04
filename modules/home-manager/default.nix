@@ -250,16 +250,16 @@
       git_status = {
         format = "[$all_status](yellow)";
         style = "green";
-        modified = "⚡️";
+        modified = "🧪";
         ahead = "";
         behind = "";
         conflicted = "";
         deleted = "";
         diverged = "";
         renamed = "";
-        staged = "";
+        staged = "⚡️";
         stashed = "";
-        untracked = "";
+        untracked = "✗";
       };
     };
   };
