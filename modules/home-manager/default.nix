@@ -3,13 +3,18 @@
   lib,
   onePasswordEnabled,
   enableSshConfig ? true,
+  nixvim,
   ...
 }:
 
 {
-  imports = lib.optionals (onePasswordEnabled) [
-    (import ./one-password.nix)
-  ];
+  imports =
+    lib.optionals (onePasswordEnabled) [
+      (import ./one-password.nix)
+    ]
+    ++ [
+      nixvim.homeManagerModules.nixvim
+    ];
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -19,6 +24,7 @@
   home = {
     packages = with pkgs; [
       (callPackage ./system-update.nix { })
+      nerd-fonts.fira-code
       aichat
       cachix
       claude-code
@@ -69,6 +75,10 @@
         option_as_alt = "OnlyLeft";
         startup_mode = "Maximized";
       };
+      font = {
+        normal.family = "FiraCode Nerd Font";
+        size = 14.0;
+      };
     };
   };
 
@@ -106,10 +116,26 @@
     };
   };
 
-  programs.neovim = {
+  programs.nixvim = {
     enable = true;
-    viAlias = true;
-    vimAlias = true;
+    globals.mapleader = ",";
+
+    plugins = {
+      lualine.enable = true;
+      nvim-tree.enable = true;
+      telescope.enable = true;
+      treesitter.enable = true;
+      web-devicons.enable = true;
+    };
+
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = "<cmd>NvimTreeToggle<cr>";
+        options.desc = "Toggle file explorer";
+      }
+    ];
   };
 
   programs.nushell = {

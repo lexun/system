@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager }:
+{ nixpkgs, home-manager, nixvim }:
 
 let
   system = "x86_64-linux";
@@ -12,6 +12,7 @@ home-manager.lib.homeManagerConfiguration {
   extraSpecialArgs = {
     onePasswordEnabled = false;
     enableSshConfig = false;
+    inherit nixvim;
   };
   modules = [
     ../modules/home-manager
