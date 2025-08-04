@@ -118,7 +118,7 @@
 
   programs.nixvim = {
     enable = true;
-    globals.mapleader = ",";
+    globals.mapleader = " ";
 
     plugins = {
       lualine.enable = true;
@@ -126,14 +126,39 @@
       telescope.enable = true;
       treesitter.enable = true;
       web-devicons.enable = true;
+      which-key.enable = true;
     };
 
     keymaps = [
       {
+        mode = "i";
+        key = "jk";
+        action = "<Esc>";
+        options.desc = "Exit insert mode";
+      }
+      {
         mode = "n";
         key = "<leader>e";
         action = "<cmd>NvimTreeToggle<cr>";
-        options.desc = "Toggle file explorer";
+        options.desc = "Explorer toggle";
+      }
+      {
+        mode = "n";
+        key = "<leader>f";
+        action = "<cmd>Telescope find_files<cr>";
+        options.desc = "Find files";
+      }
+      {
+        mode = "n";
+        key = "<leader>g";
+        action = "<cmd>Telescope live_grep<cr>";
+        options.desc = "Grep text";
+      }
+      {
+        mode = "n";
+        key = "<leader>b";
+        action = "<cmd>Telescope buffers<cr>";
+        options.desc = "Browse buffers";
       }
     ];
   };
