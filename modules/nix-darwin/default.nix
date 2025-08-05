@@ -7,6 +7,7 @@
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "rebuild";
   home-manager.extraSpecialArgs = {
+    inherit inputs;
     onePasswordEnabled = true;
     enableSshConfig = true;
     nixvim = inputs.nixvim;

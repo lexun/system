@@ -19,6 +19,11 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vibetree = {
+      url = "github:lexun/vibetree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

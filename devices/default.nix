@@ -6,13 +6,14 @@ let
     home-manager
     nixpkgs
     nixvim
+    vibetree
     ;
 in
 {
   flake = {
     darwinConfigurations = {
-      "LukesPersonalMBP" = import ./personal-macbook.nix { inherit darwin home-manager nixvim; };
-      "LukesWorkMBP" = import ./work-macbook.nix { inherit darwin home-manager nixvim; };
+      "LukesPersonalMBP" = import ./personal-macbook.nix { inherit darwin home-manager nixvim vibetree; };
+      "LukesWorkMBP" = import ./work-macbook.nix { inherit darwin home-manager nixvim vibetree; };
     };
     nixosConfigurations = {
       "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager nixvim; };

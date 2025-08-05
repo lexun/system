@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   onePasswordEnabled,
   enableSshConfig ? true,
   nixvim,
@@ -18,7 +19,10 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ (import ../../packages/overlay.nix) ];
+    overlays = [ 
+      (import ../../packages/overlay.nix)
+      inputs.vibetree.overlays.default
+    ];
   };
 
   home = {
@@ -47,6 +51,7 @@
       ripgrep
       tree
       uv
+      vibetree
       watch
     ];
 
