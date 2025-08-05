@@ -16,7 +16,7 @@ in
       "LukesWorkMBP" = import ./work-macbook.nix { inherit darwin home-manager nixvim vibetree; };
     };
     nixosConfigurations = {
-      "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager nixvim; };
+      "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager nixvim inputs; };
     };
     homeConfigurations = {
       "coder" = import ./coder.nix { inherit nixpkgs home-manager nixvim; };

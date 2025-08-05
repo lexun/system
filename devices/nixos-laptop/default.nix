@@ -1,4 +1,4 @@
-{ home-manager, nixpkgs, nixvim }:
+{ home-manager, nixpkgs, nixvim, inputs }:
 
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
@@ -10,9 +10,12 @@ nixpkgs.lib.nixosSystem {
     {
       home-manager.users.luke = ../../modules/home-manager;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs.onePasswordEnabled = false;
-      home-manager.extraSpecialArgs.enableSshConfig = true;
-      home-manager.extraSpecialArgs.nixvim = nixvim;
+      home-manager.extraSpecialArgs = {
+        inherit inputs;
+        onePasswordEnabled = false;
+        enableSshConfig = true;
+        nixvim = nixvim;
+      };
     }
   ];
 }
