@@ -4,3 +4,7 @@
 
 # Claude Code local configuration
 .claude/settings.local.json
+
+# Vibetree
+.vibetree/
+/branches
