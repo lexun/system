@@ -134,6 +134,19 @@
       treesitter.enable = true;
       web-devicons.enable = true;
       which-key.enable = true;
+
+      conform-nvim = {
+        enable = true;
+        settings = {
+          formatters_by_ft = {
+            markdown = ["prettier"];
+          };
+          format_on_save = {
+            timeout_ms = 500;
+            lsp_fallback = true;
+          };
+        };
+      };
     };
 
     keymaps = [
