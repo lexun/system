@@ -19,7 +19,7 @@ in
       "LukesNixosRB" = import ./nixos-laptop { inherit nixpkgs home-manager nixvim inputs; };
     };
     homeConfigurations = {
-      "coder" = import ./coder.nix { inherit nixpkgs home-manager nixvim; };
+      "coder" = import ./coder.nix { inherit nixpkgs home-manager nixvim inputs; };
     };
   };
 }
