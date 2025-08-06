@@ -1,5 +1,8 @@
-{ darwin, home-manager, nixvim, vibetree }:
+{ inputs }:
 
+let
+  inherit (inputs) darwin home-manager;
+in
 darwin.lib.darwinSystem {
   system = "aarch64-darwin";
   modules = [
@@ -7,8 +10,6 @@ darwin.lib.darwinSystem {
     ../modules/nix-darwin
   ];
   specialArgs = {
-    inputs = {
-      inherit nixvim vibetree;
-    };
+    inherit inputs;
   };
 }

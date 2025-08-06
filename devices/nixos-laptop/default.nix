@@ -1,5 +1,8 @@
-{ home-manager, nixpkgs, nixvim, inputs }:
+{ inputs }:
 
+let
+  inherit (inputs) home-manager nixpkgs;
+in
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   modules = [
@@ -14,7 +17,7 @@ nixpkgs.lib.nixosSystem {
         inherit inputs;
         onePasswordEnabled = false;
         enableSshConfig = true;
-        nixvim = nixvim;
+        nixvim = inputs.nixvim;
       };
     }
   ];

@@ -1,6 +1,7 @@
-{ nixpkgs, home-manager, nixvim, inputs }:
+{ inputs }:
 
 let
+  inherit (inputs) nixpkgs home-manager;
   system = "x86_64-linux";
   pkgs = import nixpkgs {
     inherit system;
@@ -12,7 +13,8 @@ home-manager.lib.homeManagerConfiguration {
   extraSpecialArgs = {
     onePasswordEnabled = false;
     enableSshConfig = false;
-    inherit nixvim inputs;
+    inherit inputs;
+    nixvim = inputs.nixvim;
   };
   modules = [
     ../modules/home-manager
