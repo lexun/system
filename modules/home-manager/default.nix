@@ -44,6 +44,7 @@
       kube3d
       kubectl
       kubectx
+      mermaid-cli
       mob
       nixfmt-rfc-style
       nodejs_24
