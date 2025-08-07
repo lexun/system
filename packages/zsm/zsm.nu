@@ -50,7 +50,7 @@ def main [] {
   } else if ($selected | str contains "Connect to coder workspace") {
     # Get list of coder workspaces and connect
     let workspaces = (try {
-      coder list --global-config "/Users/luke/Library/Application Support/coderv2"
+      coder list --global-config "/Users/luke/Library/Application Support/coderv2" err> /dev/null
       | lines
       | where not ($it | str contains "version mismatch")
       | where not ($it | str contains "download v")
