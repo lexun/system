@@ -191,7 +191,7 @@
       $env.config.show_banner = false
       $env.SHELL = "${pkgs.nushell}/bin/nu"
       $env.FORCE_COLOR = "1"
-      $env.FZF_DEFAULT_OPTS = "--color=16 --ansi"
+      $env.FZF_DEFAULT_OPTS = "--ansi"
       $env.PATH = (
         $env.PATH
         | split row (char esep)
