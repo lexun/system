@@ -266,9 +266,9 @@
       };
 
       git_status = {
-        format = "[$all_status](yellow)";
+        format = "[$staged](yellow)[$modified](blue)[$untracked](red)";
         style = "green";
-        modified = "🧪";
+        modified = "🧪 ";
         ahead = "";
         behind = "";
         conflicted = "";
@@ -277,7 +277,7 @@
         renamed = "";
         staged = "⚡️";
         stashed = "";
-        untracked = "✗";
+        untracked = "✗ ";
       };
     };
   };
