@@ -457,11 +457,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1754360846,
-        "narHash": "sha256-W5kUNLxfsfqEM8vGv0CkfcUGrgY2IOcwwN8HSeXS2vo=",
+        "lastModified": 1754537456,
+        "narHash": "sha256-TKIKVZpsiE4LAu5FVV1fVO//rk+l92N5gEmgIWxhhpc=",
         "owner": "lexun",
         "repo": "vibetree",
-        "rev": "56755479781f0dd8808e35a47d476df1a1639bf6",
+        "rev": "2652ffa1858fbfb78102ca3bae3d1f2ac8310d0a",
         "type": "github"
       },
       "original": {
