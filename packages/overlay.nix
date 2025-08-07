@@ -1,5 +1,7 @@
 final: prev: {
   git-coauthor = prev.callPackage ./git-coauthor { };
+  system-update = prev.callPackage ./system-update { };
+  zsm = prev.callPackage ./zsm { };
 
   carapace = prev.carapace.overrideAttrs (oldAttrs: {
     version = "1.4.1";

@@ -28,9 +28,6 @@
 
   home = {
     packages = with pkgs; [
-      (callPackage ./system-update.nix { })
-      (callPackage ./zellij-session-manager.nix { })
-      nerd-fonts.fira-code
       aichat
       cachix
       claude-code
@@ -46,14 +43,18 @@
       kubectx
       mermaid-cli
       mob
+      nerd-fonts.fira-code
       nixfmt-rfc-style
       nodejs_24
+      nufmt
       nodePackages.prettier
       ripgrep
+      system-update
       tree
       uv
       vibetree
       watch
+      zsm
     ];
 
     sessionPath = [
