@@ -129,13 +129,55 @@
     enable = true;
     globals.mapleader = " ";
 
+    colorschemes.vscode = {
+      enable = true;
+      settings.style = "dark";
+    };
+
+    opts = {
+      number = true;
+      relativenumber = true;
+      syntax = "on";
+      termguicolors = true;
+    };
+
     plugins = {
       lualine.enable = true;
       nvim-tree.enable = true;
       telescope.enable = true;
-      treesitter.enable = true;
       web-devicons.enable = true;
       which-key.enable = true;
+
+      treesitter = {
+        enable = true;
+        settings = {
+          highlight.enable = true;
+          indent.enable = true;
+          ensure_installed = [
+            "bash"
+            "css"
+            "elixir"
+            "html"
+            "javascript"
+            "json"
+            "markdown"
+            "nix"
+            "python"
+            "rust"
+            "typescript"
+            "yaml"
+          ];
+        };
+      };
+
+      lsp = {
+        enable = true;
+        servers = {
+          nil-ls.enable = true;
+          elixirls.enable = true;
+          bashls.enable = true;
+        };
+      };
 
       conform-nvim = {
         enable = true;
