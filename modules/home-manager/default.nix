@@ -111,6 +111,7 @@
     ignores = [
       ".vscode"
       ".aider*"
+      ".claude/settings.local.json"
     ];
     includes = [
       { path = "~/.config/git-coauthor/config"; }
