@@ -15,7 +15,7 @@
     ]
     ++ [
       (import ./coder-client.nix)
-      nixvim.homeManagerModules.nixvim
+      nixvim.homeModules.nixvim
     ];
 
   nixpkgs = {
@@ -173,7 +173,7 @@
       lsp = {
         enable = true;
         servers = {
-          nil-ls.enable = true;
+          nil_ls.enable = true;
           elixirls.enable = true;
           bashls.enable = true;
         };
@@ -329,7 +329,7 @@
 
   programs.ssh = {
     enable = enableSshConfig;
-    controlPath = "none";
+    matchBlocks."*".controlPath = "none";
   };
 
   programs.zellij = {
