@@ -8,7 +8,7 @@ darwin.lib.darwinSystem {
   modules = [
     home-manager.darwinModules.home-manager
     ../modules/nix-darwin
-    {
+    ({ pkgs, ... }: {
       homebrew.casks = [
         "amazon-workspaces"
         "dbvisualizer"
@@ -19,6 +19,10 @@ darwin.lib.darwinSystem {
         "tuple"
       ];
       home-manager.users.luke = {
+        home.packages = with pkgs; [
+          cloudsmith-cli
+          mob
+        ];
         programs.go.enable = true;
         programs.zsh = {
           profileExtra = ''eval "$(/opt/homebrew/bin/brew shellenv)"'';
@@ -31,7 +35,7 @@ darwin.lib.darwinSystem {
           )
         '';
       };
-    }
+    })
   ];
   specialArgs = {
     inherit inputs;

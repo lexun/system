@@ -20,7 +20,7 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ 
+    overlays = [
       (import ../../packages/overlay.nix)
       inputs.vibetree.overlays.default
     ];
@@ -42,7 +42,6 @@
       kubectl
       kubectx
       mermaid-cli
-      mob
       nerd-fonts.fira-code
       nixfmt-rfc-style
       nodejs_24
@@ -184,7 +183,7 @@
         enable = true;
         settings = {
           formatters_by_ft = {
-            markdown = ["prettier"];
+            markdown = [ "prettier" ];
           };
           format_on_save = {
             timeout_ms = 500;
