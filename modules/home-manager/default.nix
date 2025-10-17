@@ -329,6 +329,7 @@
 
   programs.ssh = {
     enable = enableSshConfig;
+    enableDefaultConfig = false;
     matchBlocks."*".controlPath = "none";
   };
 
