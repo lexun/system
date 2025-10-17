@@ -285,6 +285,7 @@
       la = "ls -a";
       ll = "ls -l";
       lx = "ls -la";
+      vt = "vibetree";
     };
   };
 
