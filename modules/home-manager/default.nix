@@ -29,6 +29,7 @@
   home = {
     packages = with pkgs; [
       aichat
+      beads
       cachix
       claude-code
       devenv
