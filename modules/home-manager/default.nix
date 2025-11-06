@@ -249,6 +249,7 @@
     shellAliases = {
       update = "system-update";
       ai = "aichat -e";
+      ga = "git add";
       gaa = "git add --all";
       gap = "git add --patch";
       gb = "git branch";
