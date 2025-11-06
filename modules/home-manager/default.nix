@@ -32,6 +32,7 @@
       beads
       cachix
       claude-code
+      cursor-cli
       devenv
       difftastic
       fzf
