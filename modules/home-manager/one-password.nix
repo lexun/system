@@ -18,7 +18,7 @@
       signByDefault = true;
     };
 
-    extraConfig = {
+    settings = {
       gpg = { format = "ssh"; };
       "gpg \"ssh\"" = lib.mkIf pkgs.stdenv.isDarwin {
         program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";

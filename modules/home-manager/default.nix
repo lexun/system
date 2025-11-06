@@ -39,7 +39,7 @@
       git-coauthor
       gnupg
       k9s
-      kube3d
+      k3d
       kubectl
       kubectx
       mermaid-cli
@@ -105,8 +105,6 @@
 
   programs.git = {
     enable = true;
-    userName = "Luke Barbuto";
-    userEmail = "luke.barbuto@gmail.com";
     lfs.enable = true;
     ignores = [
       ".vscode"
@@ -116,7 +114,11 @@
     includes = [
       { path = "~/.config/git-coauthor/config"; }
     ];
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Luke Barbuto";
+        email = "luke.barbuto@gmail.com";
+      };
       init = {
         defaultBranch = "main";
       };

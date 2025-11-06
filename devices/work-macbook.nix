@@ -9,6 +9,11 @@ darwin.lib.darwinSystem {
     home-manager.darwinModules.home-manager
     ../modules/nix-darwin
     ({ pkgs, ... }: {
+      nixpkgs.config.packageOverrides = pkgs: {
+        cloudsmith-cli = pkgs.cloudsmith-cli.overridePythonAttrs (old: {
+          doCheck = false;
+        });
+      };
       homebrew.casks = [
         "amazon-workspaces"
         "dbvisualizer"

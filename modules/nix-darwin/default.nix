@@ -59,7 +59,10 @@
 
   programs.zsh.enable = true;
 
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    text = "auth sufficient pam_tid.so.2";
+  };
 
   system.primaryUser = "luke";
 
