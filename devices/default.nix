@@ -7,6 +7,7 @@
     };
     nixosConfigurations = {
       "LukesNixosRB" = import ./nixos-laptop { inherit inputs; };
+      "FamilyNixosROG" = import ./family-nixos-rog { inherit inputs; };
     };
     homeConfigurations = {
       "coder" = import ./coder.nix { inherit inputs; };

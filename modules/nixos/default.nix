@@ -18,7 +18,7 @@
     ];
   };
 
-  time.timeZone = "America/New_York";
+  time.timeZone = "Pacific/Honolulu";
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
