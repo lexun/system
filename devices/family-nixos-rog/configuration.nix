@@ -27,6 +27,19 @@
     extraCompatPackages = with pkgs; [
       proton-ge-bin  # GE-Proton for better game compatibility
     ];
+
+    # Mount /games into the FHS container so Steam can see it
+    package = pkgs.steam.override {
+      extraArgs = "-pipewire-dmabuf";
+      extraEnv = {
+        DXVK_HDR = "1";
+      };
+      buildFHSEnv = args: (pkgs.buildFHSEnv.override {}) (args // {
+        extraBwrapArgs = (args.extraBwrapArgs or []) ++ [
+          "--bind /games /games"
+        ];
+      });
+    };
   };
 
   # Create shared Steam library folder for all family members
