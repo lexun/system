@@ -2,8 +2,13 @@
 
 {
   environment.systemPackages = with pkgs; [
+    brave
+    clang
+    gcc
     git
     pciutils
+    spotify
+    zig
   ];
 
   users.users.luke.home = "/home/luke";
@@ -12,13 +17,12 @@
     description = "Luke Barbuto";
     extraGroups = [ "docker" "networkmanager" "wheel" ];
     packages = with pkgs; [
-      brave
       obsidian
       protonvpn-gui
     ];
   };
 
-  time.timeZone = "America/New_York";
+  time.timeZone = "Pacific/Honolulu";
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -59,9 +63,8 @@
 
   virtualisation.docker.enable = true;
 
-  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.systemd-boot.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
