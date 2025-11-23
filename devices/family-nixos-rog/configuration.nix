@@ -22,7 +22,19 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+
+    # Add better Proton compatibility tools
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin  # GE-Proton for better game compatibility
+    ];
   };
+
+  # Create shared Steam library folder for all family members
+  # Each user should add /home/shared/steam as a Steam Library in Steam settings
+  systemd.tmpfiles.rules = [
+    "d /home/shared 0755 root root -"
+    "d /home/shared/steam 0775 root users -"  # Group-writable by all users
+  ];
 
   # Nvidia GPU configuration (RTX 4070 Ti SUPER)
   services.xserver.videoDrivers = [ "nvidia" ];
