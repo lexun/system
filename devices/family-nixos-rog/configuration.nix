@@ -69,4 +69,26 @@
     # Use the open-source kernel modules (recommended for RTX 40 series)
     open = true;
   };
+
+  # Family user accounts
+  users.users.auri = {
+    isNormalUser = true;
+    description = "Auri Barbuto";
+    extraGroups = [ "networkmanager" "users" ];
+    initialPassword = "";
+  };
+
+  users.users.zevi = {
+    isNormalUser = true;
+    description = "Zevi Barbuto";
+    extraGroups = [ "networkmanager" "users" ];
+    initialPassword = "";
+  };
+
+  users.users.yasu = {
+    isNormalUser = true;
+    description = "Yasu Barbuto";
+    extraGroups = [ "networkmanager" "users" ];
+    initialPassword = "";
+  };
 }
