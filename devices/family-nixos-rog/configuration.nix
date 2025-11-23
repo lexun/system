@@ -30,10 +30,9 @@
   };
 
   # Create shared Steam library folder for all family members
-  # Each user should add /home/shared/steam as a Steam Library in Steam settings
+  # Using /games at root level for better FHS container compatibility
   systemd.tmpfiles.rules = [
-    "d /home/shared 0755 root root -"
-    "d /home/shared/steam 0775 root users -"  # Group-writable by all users
+    "d /games 0775 root users -"  # Group-writable by all users
   ];
 
   # Nvidia GPU configuration (RTX 4070 Ti SUPER)
