@@ -50,6 +50,7 @@
       nufmt
       nodePackages.prettier
       ripgrep
+      surrealdb
       system-update
       tree
       uv
