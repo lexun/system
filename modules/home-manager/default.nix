@@ -39,6 +39,7 @@
       gh
       git-coauthor
       gnupg
+      graphiti-mcp
       k9s
       k3d
       kubectl
