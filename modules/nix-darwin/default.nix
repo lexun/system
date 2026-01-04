@@ -30,6 +30,7 @@
     "docker-desktop"
     "epic-games"
     "godot"
+    "grandperspective"
     "krisp"
     "krita"
     "nvidia-geforce-now"
