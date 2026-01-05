@@ -51,6 +51,8 @@
       nufmt
       nodePackages.prettier
       ripgrep
+      cargo
+      rustc
       surrealdb
       system-update
       tree
