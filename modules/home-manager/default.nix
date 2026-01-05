@@ -22,7 +22,6 @@
     config.allowUnfree = true;
     overlays = [
       (import ../../packages/overlay.nix)
-      inputs.vibetree.overlays.default
     ];
   };
 
@@ -57,7 +56,6 @@
       system-update
       tree
       uv
-      vibetree
       watch
       zsm
     ];
