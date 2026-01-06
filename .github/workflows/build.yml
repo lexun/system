@@ -2,9 +2,7 @@ name: Build and Cache
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 jobs:
   build-linux:
