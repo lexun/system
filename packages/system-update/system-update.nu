@@ -3,7 +3,7 @@ def main [] {
   rm -f ~/.ssh/config.rebuild
 
   if not ("~/.system" | path exists) {
-    git clone https://github.com/lexun/system ~/.system
+    git clone git@github.com:lexun/system.git ~/.system
   }
 
   cd ~/.system
