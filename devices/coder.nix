@@ -9,15 +9,6 @@ let
     overlays = [
       inputs.vibetree.overlays.default
       inputs.memex.overlays.default
-      # Temporary fix: memex needs libclang for surrealdb-librocksdb-sys bindgen
-      (final: prev: {
-        memex = prev.memex.overrideAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-            final.llvmPackages.libclang
-          ];
-          LIBCLANG_PATH = "${final.llvmPackages.libclang.lib}/lib";
-        });
-      })
     ];
   };
 in
