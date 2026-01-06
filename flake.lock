@@ -392,11 +392,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1767601874,
-        "narHash": "sha256-59vpVzJJ+CxcWuGmQwF8M3oew5WImgvtOem+IOKqd18=",
+        "lastModified": 1767668937,
+        "narHash": "sha256-H0/yerZWQ3iPYnAn7LypozOrpP3EW63Cl0rfOeL8CmQ=",
         "owner": "lexun",
         "repo": "memex",
-        "rev": "c64f0b5c11ceb69f7c2cd4ba5a6bfb530ae16bd2",
+        "rev": "a5bfa06f80020911a5e1e8c7f94996634cc15592",
         "type": "github"
       },
       "original": {
