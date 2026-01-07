@@ -45,7 +45,7 @@
       kubectx
       mermaid-cli
       nerd-fonts.fira-code
-      nixfmt-rfc-style
+      nixfmt
       nodejs_24
       nufmt
       nodePackages.prettier
