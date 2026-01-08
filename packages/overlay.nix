@@ -5,6 +5,12 @@ final: prev: {
   system-update = prev.callPackage ./system-update { };
   zsm = prev.callPackage ./zsm { };
 
+  # Skip flaky NarinfoQuery tests on Darwin (fixed upstream in cachix PR #715,
+  # but not yet released in nixpkgs)
+  cachix = prev.cachix.overrideAttrs (oldAttrs: prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
+    doCheck = false;
+  });
+
   # Fix rocksdb build on macOS - the BUILTIN_ATOMIC check fails on ARM64
   # because it uses x86-only compiler flags, causing it to incorrectly
   # try to link against -latomic (which doesn't exist on macOS)
