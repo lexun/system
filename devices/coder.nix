@@ -8,7 +8,6 @@ let
     config.allowUnfree = true;
     overlays = [
       inputs.vibetree.overlays.default
-      inputs.memex.overlays.default
     ];
   };
 in
@@ -29,7 +28,6 @@ home-manager.lib.homeManagerConfiguration {
         _1password-cli
         cloudsmith-cli
         less
-        memex
         vibetree
       ];
     }
