@@ -15,6 +15,7 @@
     ]
     ++ [
       (import ./coder-client.nix)
+      (import ./dev-droplet-ssh.nix)
       nixvim.homeModules.nixvim
     ];
 
@@ -338,7 +339,10 @@
   programs.ssh = {
     enable = enableSshConfig;
     enableDefaultConfig = false;
-    matchBlocks."*".controlPath = "none";
+    matchBlocks."*" = {
+      controlPath = "none";
+      extraOptions.MACs = "hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com";
+    };
   };
 
   programs.zellij = {
@@ -356,6 +360,7 @@
     };
     shellAliases = {
       update = "system-update";
+      dev = "ssh -o 'MACs=hmac-sha2-256-etm@openssh.com' dev";
     };
     oh-my-zsh = {
       enable = true;

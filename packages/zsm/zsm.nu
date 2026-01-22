@@ -6,17 +6,27 @@ def main [] {
     ""
   })
 
-  # Check if we're in a coder environment
   let in_coder = ($env | get --optional CODER_WORKSPACE_NAME | is-not-empty)
+  let in_dev = (hostname) == "dev"
+  let is_work_mac = (scutil --get LocalHostName) == "LukesWorkMBP"
 
-  # Prepare options for fzf with new session at top
   let new_session_option = "✨ Create new session"
 
-  let with_coder_option = if $in_coder {
-    $new_session_option
+  let coder_option = if $is_work_mac and not $in_coder {
+    $"\n(ansi yellow)⚡️(ansi reset) Connect to coder workspace"
   } else {
-    $new_session_option + $"\n(ansi yellow)⚡️(ansi reset) Connect to coder workspace"
+    ""
   }
+
+  let dev_option = if not $in_coder and not $in_dev {
+    $"\n(ansi cyan)💧(ansi reset) Connect to dev droplet"
+  } else {
+    ""
+  }
+
+  let remote_options = $coder_option + $dev_option
+
+  let with_coder_option = $new_session_option + $remote_options
 
   let options = if ($sessions | is-empty) {
     $with_coder_option
@@ -47,6 +57,8 @@ def main [] {
     } else {
       exec zellij --session $session_name
     }
+  } else if ($selected | str contains "Connect to dev droplet") {
+    exec ssh -t -o "MACs=hmac-sha2-256-etm@openssh.com" dev "TERM=xterm-256color zsm"
   } else if ($selected | str contains "Connect to coder workspace") {
     # Get list of coder workspaces and connect
     let workspaces = (try {
