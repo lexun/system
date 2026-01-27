@@ -11,6 +11,7 @@
     };
     homeConfigurations = {
       "coder" = import ./coder.nix { inherit inputs; };
+      "dev" = import ./dev-droplet.nix { inherit inputs; };
     };
   };
 }
