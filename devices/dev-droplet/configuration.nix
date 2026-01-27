@@ -24,6 +24,17 @@
       PasswordAuthentication = false;
       PermitRootLogin = "prohibit-password";
     };
+    # Handle brute-force attacks better
+    extraConfig = ''
+      MaxStartups 50:30:100
+    '';
+  };
+
+  # Fail2ban to block brute-force attackers
+  services.fail2ban = {
+    enable = true;
+    maxretry = 3;
+    bantime = "1h";
   };
 
   # Root access for initial setup
