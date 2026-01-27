@@ -80,5 +80,39 @@
     wget
   ];
 
+  # First-boot setup service - runs before home-manager
+  # Ensures the persistent volume has correct ownership and required directories
+  systemd.services.dev-droplet-init = {
+    description = "Initialize dev droplet home directory";
+    wantedBy = [ "multi-user.target" ];
+    before = [ "home-manager-luke.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      # Fix home directory ownership (volume mounts as root)
+      chown -R luke:users /home/luke
+
+      # Create nix profile directories
+      mkdir -p /nix/var/nix/profiles/per-user/luke
+      chown luke:users /nix/var/nix/profiles/per-user/luke
+
+      # Create local state directory for home-manager
+      su luke -c 'mkdir -p /home/luke/.local/state/nix/profiles'
+
+      # Remove conflicting nushell configs (home-manager will create them)
+      rm -f /home/luke/.config/nushell/config.nu /home/luke/.config/nushell/env.nu
+
+      # Expand volume filesystem if needed (safe to run multiple times)
+      resize2fs /dev/disk/by-id/scsi-0DO_Volume_dev-home 2>/dev/null || true
+
+      # Clone system repo if not present
+      if [ ! -d /home/luke/.system ]; then
+        su luke -c 'git clone git@github.com:lexun/system.git /home/luke/.system'
+      fi
+    '';
+  };
+
   system.stateVersion = "24.11";
 }

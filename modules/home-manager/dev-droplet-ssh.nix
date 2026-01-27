@@ -1,7 +1,8 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, enableSshConfig ? true, ... }:
 
 {
-  config = lib.mkIf pkgs.stdenv.isDarwin {
+  # Enable on all machines except the droplet itself (controlled by enableSshConfig)
+  config = lib.mkIf enableSshConfig {
     # Ensure SSH sockets directory exists
     home.file.".ssh/sockets/.keep".text = "";
 

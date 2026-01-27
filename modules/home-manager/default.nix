@@ -59,6 +59,7 @@
       uv
       watch
       zsm
+      dev-droplet-scripts  # dev-up, dev-down commands
     ];
 
     sessionPath = [

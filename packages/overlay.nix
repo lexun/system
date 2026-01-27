@@ -1,5 +1,6 @@
 final: prev: {
   beads = prev.callPackage ./beads { };
+  dev-droplet-scripts = prev.callPackage ./dev-droplet { };
   git-coauthor = prev.callPackage ./git-coauthor { };
   graphiti-mcp = prev.callPackage ./graphiti-mcp { };
   system-update = prev.callPackage ./system-update { };
