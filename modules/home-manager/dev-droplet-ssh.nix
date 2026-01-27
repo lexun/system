@@ -6,7 +6,7 @@
     home.file.".ssh/sockets/.keep".text = "";
 
     programs.ssh.matchBlocks."dev" = {
-      hostname = "134.199.244.204";
+      hostname = "146.190.13.220";
       user = "luke";
       forwardAgent = true;
 
