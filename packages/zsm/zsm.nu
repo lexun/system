@@ -8,7 +8,11 @@ def main [] {
 
   let in_coder = ($env | get --optional CODER_WORKSPACE_NAME | is-not-empty)
   let in_dev = (hostname) == "dev"
-  let is_work_mac = (scutil --get LocalHostName) == "LukesWorkMBP"
+  let is_work_mac = if $nu.os-info.name == "macos" {
+    (scutil --get LocalHostName) == "LukesWorkMBP"
+  } else {
+    false
+  }
 
   let new_session_option = "✨ Create new session"
 
