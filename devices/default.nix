@@ -8,10 +8,10 @@
     nixosConfigurations = {
       "LukesNixosRB" = import ./nixos-laptop { inherit inputs; };
       "FamilyNixosROG" = import ./nixos-desktop { inherit inputs; };
+      "dev" = import ./dev-droplet { inherit inputs; };
     };
     homeConfigurations = {
       "coder" = import ./coder.nix { inherit inputs; };
-      "dev" = import ./dev-droplet.nix { inherit inputs; };
     };
   };
 }

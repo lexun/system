@@ -15,8 +15,6 @@ def main [] {
   if $nu.os-info.name == "linux" {
     if $env.USER == "coder" {
       exec nix run .#homeConfigurations.coder.activationPackage
-    } else if (hostname) == "dev" {
-      exec nix run .#homeConfigurations.dev.activationPackage
     } else {
       exec sudo nixos-rebuild switch --flake .
     }
