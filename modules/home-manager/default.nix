@@ -127,6 +127,9 @@
       init = {
         defaultBranch = "main";
       };
+      core = {
+        editor = "nvim";
+      };
       diff = {
         external = "difft";
       };
