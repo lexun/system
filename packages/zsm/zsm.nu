@@ -8,6 +8,7 @@ def main [] {
 
   let in_coder = ($env | get --optional CODER_WORKSPACE_NAME | is-not-empty)
   let in_dev = (hostname) == "dev"
+  let in_desktop = (hostname) == "familynixosrog"
   let is_work_mac = if $nu.os-info.name == "macos" {
     (scutil --get LocalHostName) == "LukesWorkMBP"
   } else {
@@ -28,7 +29,13 @@ def main [] {
     ""
   }
 
-  let remote_options = $coder_option + $dev_option
+  let desktop_option = if not $in_coder and not $in_desktop {
+    $"\n(ansi magenta)🖥️ (ansi reset) Connect to desktop"
+  } else {
+    ""
+  }
+
+  let remote_options = $coder_option + $dev_option + $desktop_option
 
   let with_coder_option = $new_session_option + $remote_options
 
@@ -40,6 +47,7 @@ def main [] {
 
   # Use fzf to select
   let selected = ($options | fzf
+    --ansi
     --prompt="Select or create Zellij session: "
     --border
     --preview-window=hidden
@@ -63,6 +71,8 @@ def main [] {
     }
   } else if ($selected | str contains "Connect to dev droplet") {
     exec ssh -t -o "MACs=hmac-sha2-256-etm@openssh.com" -L 3050:localhost:3030 dev "TERM=xterm-256color zsm"
+  } else if ($selected | str contains "Connect to desktop") {
+    exec ssh -t -o "MACs=hmac-sha2-256-etm@openssh.com" luke@familynixosrog "TERM=xterm-256color zsm"
   } else if ($selected | str contains "Connect to coder workspace") {
     # Get list of coder workspaces and connect
     let workspaces = (try {
