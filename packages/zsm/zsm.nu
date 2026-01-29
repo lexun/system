@@ -8,7 +8,7 @@ def main [] {
 
   let in_coder = ($env | get --optional CODER_WORKSPACE_NAME | is-not-empty)
   let in_dev = (hostname) == "dev"
-  let in_desktop = (hostname) == "familynixosrog"
+  let in_desktop = (hostname | str downcase) == "familynixosrog"
   let is_work_mac = if $nu.os-info.name == "macos" {
     (scutil --get LocalHostName) == "LukesWorkMBP"
   } else {
