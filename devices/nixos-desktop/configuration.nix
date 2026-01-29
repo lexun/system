@@ -87,4 +87,18 @@
     ];
     initialPassword = "";
   };
+
+  # Remote access for development
+  services.tailscale.enable = true;
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
+  # Open firewall for Tailscale
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
 }
