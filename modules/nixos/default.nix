@@ -20,6 +20,9 @@
       obsidian
       protonvpn-gui
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvFuWgZeycJkUJI7pZxth/nhmtiH5Y6YD84EjNpFl63"
+    ];
   };
 
   time.timeZone = "Pacific/Honolulu";
