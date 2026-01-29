@@ -250,6 +250,17 @@
         | append $"/etc/profiles/per-user/($env.USER)/bin"
         | append $"($env.HOME)/.nix-profile/bin"
       )
+
+      # On Linux, fix SSH_AUTH_SOCK if the current socket is stale (for agent forwarding in tmux/zellij)
+      if $nu.os-info.name == "linux" {
+        let current_sock = ($env | get -o SSH_AUTH_SOCK | default "")
+        if ($current_sock != "" and ($current_sock | path exists | not $in)) {
+          let latest = (ls ~/.ssh/agent/s.* | sort-by modified -r | get 0?.name | default "")
+          if $latest != "" {
+            $env.SSH_AUTH_SOCK = $latest
+          }
+        }
+      }
     '';
     shellAliases = {
       update = "system-update";

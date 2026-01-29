@@ -86,6 +86,7 @@
     description = "Initialize dev droplet home directory";
     wantedBy = [ "multi-user.target" ];
     before = [ "home-manager-luke.service" ];
+    path = [ pkgs.git pkgs.sudo pkgs.e2fsprogs ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -99,17 +100,14 @@
       chown luke:users /nix/var/nix/profiles/per-user/luke
 
       # Create local state directory for home-manager
-      su luke -c 'mkdir -p /home/luke/.local/state/nix/profiles'
-
-      # Remove conflicting nushell configs (home-manager will create them)
-      rm -f /home/luke/.config/nushell/config.nu /home/luke/.config/nushell/env.nu
+      install -d -o luke -g users /home/luke/.local/state/nix/profiles
 
       # Expand volume filesystem if needed (safe to run multiple times)
       resize2fs /dev/disk/by-id/scsi-0DO_Volume_dev-home 2>/dev/null || true
 
-      # Clone system repo if not present
+      # Clone system repo if not present (run as luke via sudo)
       if [ ! -d /home/luke/.system ]; then
-        su luke -c 'git clone git@github.com:lexun/system.git /home/luke/.system'
+        sudo -u luke git clone git@github.com:lexun/system.git /home/luke/.system
       fi
     '';
   };
