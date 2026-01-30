@@ -6,6 +6,7 @@
     clang
     gcc
     git
+    opentofu
     pciutils
     spotify
     zig

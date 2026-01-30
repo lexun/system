@@ -11,7 +11,7 @@ nixpkgs.lib.nixosSystem {
     ./hardware.nix
     home-manager.nixosModules.home-manager
     {
-      home-manager.users.luke = ../../modules/home-manager;
+      home-manager.users.luke = ./home-luke.nix;
       home-manager.users.games = ./home-games.nix;
       home-manager.users.auri = ./home-kids.nix;
       home-manager.users.zevi = ./home-kids.nix;

@@ -24,7 +24,7 @@ def main [] {
   cd $infra_dir
 
   # Apply with droplet disabled
-  print $"(ansi cyan)Destroying droplet (keeping volume and IP)...(ansi reset)"
+  print $"(ansi cyan)Destroying droplet \(keeping volume and IP\)...(ansi reset)"
   (tofu apply
     -var $"do_token=($do_token)"
     -var $"ssh_key_fingerprint=($ssh_fingerprint)"
