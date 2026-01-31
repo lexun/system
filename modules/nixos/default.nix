@@ -32,7 +32,10 @@
   users.defaultUserShell = pkgs.zsh;
   users.users.luke.useDefaultShell = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    trusted-users = [ "root" "luke" ];
+  };
   nixpkgs.config.allowUnfree = true;
 
   services.xserver.enable = true;
