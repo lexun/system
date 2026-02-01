@@ -72,7 +72,7 @@ def main [] {
   } else if ($selected | str contains "Connect to dev droplet") {
     exec ssh -t -o "MACs=hmac-sha2-256-etm@openssh.com" -L 3050:localhost:3030 dev "TERM=xterm-256color zsm"
   } else if ($selected | str contains "Connect to desktop") {
-    exec ssh -t -o "MACs=hmac-sha2-256-etm@openssh.com" luke@familynixosrog "TERM=xterm-256color zsm"
+    exec ssh -t -o "MACs=hmac-sha2-256-etm@openssh.com" -L 3050:localhost:3030 luke@familynixosrog "TERM=xterm-256color zsm"
   } else if ($selected | str contains "Connect to coder workspace") {
     # Get list of coder workspaces and connect
     let workspaces = (try {
