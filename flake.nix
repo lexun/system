@@ -20,11 +20,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    memex = {
-      url = "github:lexun/memex";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     vibetree = {
       url = "github:lexun/vibetree";
       inputs.nixpkgs.follows = "nixpkgs";
