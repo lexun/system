@@ -35,6 +35,14 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "root" "luke" ];
+    substituters = [
+      "https://cache.nixos.org"
+      "https://lexun.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "lexun.cachix.org-1:yBHCqP9RIJKYI58F/wwUaHxLpk7LkeHapat7gMuO1b0="
+    ];
   };
   nixpkgs.config.allowUnfree = true;
 
