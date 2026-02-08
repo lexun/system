@@ -31,7 +31,7 @@
       aichat
       beads
       cachix
-      claude-code
+      inputs.claude-code-nix.packages.${pkgs.system}.default
       cursor-cli
       devenv
       difftastic
