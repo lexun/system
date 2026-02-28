@@ -4,6 +4,7 @@ final: prev: {
   git-coauthor = prev.callPackage ./git-coauthor { };
   graphiti-mcp = prev.callPackage ./graphiti-mcp { };
   system-update = prev.callPackage ./system-update { };
+  setup-battlenet = prev.callPackage ./setup-battlenet { };
   zsm = prev.callPackage ./zsm { };
 
   # Skip flaky NarinfoQuery tests on Darwin (fixed upstream in cachix PR #715,

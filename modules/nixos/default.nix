@@ -72,6 +72,7 @@
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
+  security.sudo.wheelNeedsPassword = false;
 
   programs._1password.enable = true;
   programs._1password-gui.enable = true;

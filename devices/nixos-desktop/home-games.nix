@@ -1,15 +1,24 @@
 { pkgs, ... }:
 
 {
-  # Minimal home-manager configuration for the dedicated gaming account
   home.stateVersion = "24.05";
 
-  # Gaming-specific packages for the games user
-  home.packages = with pkgs; [
-    # Steam is the primary application for this account
-    # System-level programs.steam.enable handles the FHS environment
+  nixpkgs.overlays = [
+    (import ../../packages/overlay.nix)
   ];
 
-  # Allow home-manager to manage this user's configuration
+  home.packages = with pkgs; [
+    setup-battlenet
+  ];
+
+  xdg.desktopEntries.battlenet = {
+    name = "Battle.net";
+    exec = "steam";
+    icon = "applications-games";
+    comment = "Launch Battle.net via Steam";
+    categories = [ "Game" ];
+    type = "Application";
+  };
+
   programs.home-manager.enable = true;
 }
