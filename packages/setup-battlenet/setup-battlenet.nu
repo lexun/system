@@ -1,11 +1,18 @@
 const INSTALLER_URL = "https://www.battle.net/download/getInstallerForGame?os=win&gameProgram=BATTLENET_APP"
 
-def launcher-path [] {
-  let steam = $"($env.HOME)/.local/share/Steam"
-  [$steam "steamapps" "compatdata" "3735928559" "pfx" "drive_c" "Program Files (x86)" "Battle.net" "Battle.net Launcher.exe"] | path join
+def battlenet-env [] {
+  {
+    WINEPREFIX: ($"($env.HOME)/Games/battlenet/prefix")
+    GAMEID: "umu-battlenet"
+    PROTONPATH: "GE-Proton"
+  }
 }
 
-# Download Battle.net installer and add it to Steam
+def launcher-path [] {
+  [$env.HOME "Games" "battlenet" "prefix" "drive_c" "Program Files (x86)" "Battle.net" "Battle.net Launcher.exe"] | path join
+}
+
+# Download and install Battle.net with Proton
 def "main install" [] {
   let dir = $"($env.HOME)/Games/battlenet"
   let installer = $"($dir)/Battle.net-Setup.exe"
@@ -17,32 +24,28 @@ def "main install" [] {
     ^curl -L -o $installer $INSTALLER_URL
   }
 
-  print "Adding Battle.net to Steam..."
-  ^add-steam-shortcut install
+  print "Installing Battle.net with Proton..."
+  print "Complete the installer, then close Battle.net when done."
 
-  print ""
-  print "Next steps:"
-  print "  1. Restart Steam"
-  print "  2. Find 'Battle.net' in your Steam library"
-  print "  3. Right-click → Properties → Compatibility → Force GE-Proton"
-  print "  4. Click Play to run the installer"
-  print "  5. Complete the installer, then close Battle.net"
-  print "  6. Run: setup-battlenet finish"
+  with-env (battlenet-env) {
+    ^umu-run $installer
+  }
+
+  print "Done. Launch with: setup-battlenet"
 }
 
-# Update Steam shortcut from installer to launcher
-def "main finish" [] {
-  ^add-steam-shortcut finish
-}
-
-# Open Steam to play Battle.net
+# Launch Battle.net
 def main [] {
-  if not (launcher-path | path exists) {
+  let launcher = (launcher-path)
+
+  if not ($launcher | path exists) {
     print "Battle.net is not installed yet."
     print ""
     print "To install, run: setup-battlenet install"
     return
   }
 
-  ^steam
+  with-env (battlenet-env) {
+    ^umu-run $launcher
+  }
 }

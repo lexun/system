@@ -9,6 +9,7 @@
 
   home.packages = with pkgs; [
     setup-battlenet
+    umu-launcher
   ];
 
   xdg.desktopEntries.battlenet = {
