@@ -38,6 +38,9 @@
       fzf
       gh
       git-coauthor
+      google-cloud-sdk
+      pulumi
+      pulumiPackages.pulumi-language-nodejs
       gnupg
       graphiti-mcp
       just
