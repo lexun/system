@@ -49,7 +49,7 @@
       nixfmt
       nodejs_24
       nufmt
-      nodePackages.prettier
+      prettier
       ripgrep
       cargo
       rustc
