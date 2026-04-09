@@ -25,7 +25,9 @@ darwin.lib.darwinSystem {
       home-manager.users.luke = {
         home.packages = with pkgs; [
           cloudsmith-cli
+          fly
           mob
+          teleport_17
         ];
         programs.go.enable = true;
         programs.zsh = {

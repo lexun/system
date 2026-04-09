@@ -40,6 +40,7 @@
       git-coauthor
       gnupg
       graphiti-mcp
+      just
       k9s
       k3d
       kubectl
