@@ -12,6 +12,7 @@
     };
     homeConfigurations = {
       "coder" = import ./coder.nix { inherit inputs; };
+      "gcp-dev" = import ./gcp-dev.nix { inherit inputs; };
     };
   };
 }

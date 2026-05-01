@@ -29,13 +29,19 @@ def main [] {
     ""
   }
 
+  let gcp_dev_option = if not $in_coder and not $in_dev {
+    $"\n(ansi green)☁️ (ansi reset) Connect to dev VM"
+  } else {
+    ""
+  }
+
   let desktop_option = if not $in_coder and not $in_desktop {
     $"\n(ansi magenta)🖥️ (ansi reset) Connect to desktop"
   } else {
     ""
   }
 
-  let remote_options = $coder_option + $dev_option + $desktop_option
+  let remote_options = $coder_option + $gcp_dev_option + $dev_option + $desktop_option
 
   let with_coder_option = $new_session_option + $remote_options
 
@@ -69,6 +75,9 @@ def main [] {
     } else {
       exec zellij --session $session_name
     }
+  } else if ($selected | str contains "Connect to dev VM") {
+    # Connect via Tailscale with agent forwarding
+    exec ssh -t -A -L 3050:localhost:3030 dev "TERM=xterm-256color zsm"
   } else if ($selected | str contains "Connect to dev droplet") {
     exec ssh -t -o "MACs=hmac-sha2-256-etm@openssh.com" -L 3050:localhost:3030 dev "TERM=xterm-256color zsm"
   } else if ($selected | str contains "Connect to desktop") {
