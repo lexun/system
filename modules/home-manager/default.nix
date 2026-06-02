@@ -38,7 +38,9 @@
       fzf
       gh
       git-coauthor
-      google-cloud-sdk
+      (google-cloud-sdk.withExtraComponents [
+        google-cloud-sdk.components.gke-gcloud-auth-plugin
+      ])
       pulumi
       pulumiPackages.pulumi-language-nodejs
       gnupg
