@@ -8,6 +8,16 @@ darwin.lib.darwinSystem {
   modules = [
     home-manager.darwinModules.home-manager
     ../modules/nix-darwin
+    {
+      homebrew.casks = [
+        "blender"
+        "godot"
+        "krita"
+        "obsidian"
+        "telegram"
+        "wacom-tablet"
+      ];
+    }
   ];
   specialArgs = {
     inherit inputs;
