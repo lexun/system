@@ -17,7 +17,7 @@
   homebrew.casks = [
     "1password-cli"
     "1password"
-    "tailscale"
+    "tailscale-app"
     "alacritty"
     "audacity"
     "beekeeper-studio"
