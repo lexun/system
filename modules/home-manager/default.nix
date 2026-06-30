@@ -71,6 +71,7 @@
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/.nix-profile/bin"
+      "$HOME/.cargo/bin"
     ];
 
     sessionVariables = {
@@ -258,6 +259,7 @@
         | append "/run/current-system/sw/bin"
         | append $"/etc/profiles/per-user/($env.USER)/bin"
         | append $"($env.HOME)/.nix-profile/bin"
+        | append $"($env.HOME)/.cargo/bin"
       )
 
       # On Linux, fix SSH_AUTH_SOCK if the current socket is stale (for agent forwarding in tmux/zellij)
