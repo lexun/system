@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.stateVersion = "24.05";
@@ -10,6 +10,8 @@
   home.packages = with pkgs; [
     setup-battlenet
     umu-launcher
+    inputs.nix-citizen.packages.${pkgs.system}.rsi-launcher
+    (pkgs.lib.lowPrio inputs.nix-citizen.packages.${pkgs.system}.lug-helper)
   ];
 
   xdg.desktopEntries.battlenet = {

@@ -10,6 +10,26 @@
   boot.initrd.luks.devices."luks-0eabf102-c02e-41f8-adb4-98fe827d8d41".device =
     "/dev/disk/by-uuid/0eabf102-c02e-41f8-adb4-98fe827d8d41";
 
+  # Additional swap file for gaming (supplements the 17GB swap partition)
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 32 * 1024; # 32GB
+    }
+  ];
+
+  # Kernel tuning for Star Citizen
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 16777216;
+    "fs.file-max" = 524288;
+  };
+
+  # nix-citizen binary cache
+  nix.settings = {
+    substituters = [ "https://nix-citizen.cachix.org" ];
+    trusted-public-keys = [ "nix-citizen.cachix.org-1:lPMkWc2X8XD4/7YPEEwXKKBg+SVbYTVrAaLA2wQTKCo=" ];
+  };
+
   # Gaming and multimedia optimizations
   # Enable steam and gaming support
   programs.steam = {
