@@ -70,8 +70,12 @@
 
     sessionPath = [
       "$HOME/.local/bin"
-      "$HOME/.nix-profile/bin"
+      # Ahead of nix-profile: when rustup is installed its shims read the
+      # project's rust-toolchain.toml and dispatch per-project, which the
+      # nix-provided cargo/rustc cannot do. On devices without rustup this
+      # entry simply does not resolve and the nix toolchain is used instead.
       "$HOME/.cargo/bin"
+      "$HOME/.nix-profile/bin"
     ];
 
     sessionVariables = {
@@ -258,8 +262,8 @@
         | append "/usr/local/bin"
         | append "/run/current-system/sw/bin"
         | append $"/etc/profiles/per-user/($env.USER)/bin"
-        | append $"($env.HOME)/.nix-profile/bin"
         | append $"($env.HOME)/.cargo/bin"
+        | append $"($env.HOME)/.nix-profile/bin"
       )
 
       # On Linux, fix SSH_AUTH_SOCK if the current socket is stale (for agent forwarding in tmux/zellij)
