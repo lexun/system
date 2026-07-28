@@ -7,10 +7,12 @@
 
 const REPO_URL = "https://github.com/Beingpax/VoiceInk.git"
 const APP_PATH = "/Applications/VoiceInk.app"
+const BUNDLE_ID = "com.prakashjoshipax.VoiceInk"
 
 def main [
   --repo: string = "~/workspace/VoiceInk" # checkout location
   --clean # rebuild the whisper framework from scratch
+  --keep-permissions # don't reset macOS permissions after installing
 ] {
   $env.PATH = ($env.PATH | prepend $NIX_BIN_PATHS)
 
@@ -63,11 +65,52 @@ def main [
   xattr -cr $APP_PATH
 
   print $"VoiceInk ($version) installed."
+
+  if not $keep_permissions {
+    reset-permissions
+  }
+
   if $was_running {
     ^open $APP_PATH
   } else {
     print $"Launch it with: open ($APP_PATH)"
   }
+
+  if not $keep_permissions {
+    print-permission-instructions
+  }
+}
+
+# Every local build is ad-hoc signed, which means a fresh signature each time.
+# macOS ties TCC grants to the signature, so the old grants stop applying while
+# System Settings still shows them enabled. Clearing them is what makes the
+# breakage visible instead of silent.
+#
+# The durable fix is signing with a stable self-signed certificate, which would
+# let the grants survive rebuilds. Not done yet; this is the stopgap.
+def reset-permissions [] {
+  print "==> Clearing stale macOS permissions"
+  for service in ["Accessibility" "ListenEvent"] {
+    do { ^tccutil reset $service $BUNDLE_ID } | complete | ignore
+  }
+}
+
+def print-permission-instructions [] {
+  print ""
+  print "ACTION REQUIRED — re-grant permissions"
+  print ""
+  print "  This build has a new ad-hoc signature, so macOS discarded VoiceInk's"
+  print "  Accessibility and Input Monitoring grants. Until you re-grant them the"
+  print "  hotkey will do nothing."
+  print ""
+  print "    1. Approve the Accessibility prompt VoiceInk shows on launch."
+  print "    2. No prompt? Open System Settings > Privacy & Security >"
+  print "       Accessibility and switch VoiceInk on."
+  print "    3. Recording broken instead of the hotkey? Check the same"
+  print "       Privacy & Security pane under Microphone."
+  print ""
+  print "  Keep the existing grants instead with: voiceink-update --keep-permissions"
+  print ""
 }
 
 # Xcode checks. Nix cannot own any of this state, but a clear failure here is
