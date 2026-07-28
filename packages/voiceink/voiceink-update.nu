@@ -59,6 +59,10 @@ def main [
     sleep 2sec
   }
 
+  # A rebuild with unchanged inputs is bit-identical, so compare signatures to
+  # decide whether macOS will actually care. Must happen before the move.
+  let binary_changed = ((cdhash-of $APP_PATH) != (cdhash-of $built))
+
   print $"==> Installing to ($APP_PATH)"
   if ($APP_PATH | path exists) { rm -rf $APP_PATH }
   mv $built $APP_PATH
@@ -66,7 +70,11 @@ def main [
 
   print $"VoiceInk ($version) installed."
 
-  if not $keep_permissions {
+  if not $binary_changed {
+    print "    binary is identical to the previous build; permissions left alone"
+  } else if $keep_permissions {
+    print "    binary changed, but permissions left alone as requested"
+  } else {
     reset-permissions
   }
 
@@ -76,18 +84,34 @@ def main [
     print $"Launch it with: open ($APP_PATH)"
   }
 
-  if not $keep_permissions {
+  if $binary_changed and (not $keep_permissions) {
     print-permission-instructions
   }
 }
 
-# Every local build is ad-hoc signed, which means a fresh signature each time.
-# macOS ties TCC grants to the signature, so the old grants stop applying while
-# System Settings still shows them enabled. Clearing them is what makes the
-# breakage visible instead of silent.
+# Empty string when the app isn't present or has no signature.
+def cdhash-of [app_path: string] {
+  if not ($app_path | path exists) { return "" }
+
+  let result = (do { ^codesign -dvvv $app_path } | complete)
+  let lines = ($"($result.stdout)\n($result.stderr)"
+    | lines
+    | where ($it | str starts-with "CDHash="))
+
+  if ($lines | is-empty) { "" } else { $lines | first | str replace "CDHash=" "" | str trim }
+}
+
+# Local builds are ad-hoc signed, so a build whose output actually differs gets
+# a new signature, and macOS stops honouring the old TCC grants while System
+# Settings still shows them switched on. Clearing them makes that visible rather
+# than silent.
 #
-# The durable fix is signing with a stable self-signed certificate, which would
-# let the grants survive rebuilds. Not done yet; this is the stopgap.
+# Observed 2026-07-28: the rejection may not appear until the next reboot, so an
+# update can seem fine for days and then break. That's why this warns loudly
+# instead of waiting for symptoms.
+#
+# The durable fix is signing with a stable self-signed certificate so grants
+# survive rebuilds entirely. Not done yet; this is the stopgap.
 def reset-permissions [] {
   print "==> Clearing stale macOS permissions"
   for service in ["Accessibility" "ListenEvent"] {
@@ -99,9 +123,10 @@ def print-permission-instructions [] {
   print ""
   print "ACTION REQUIRED — re-grant permissions"
   print ""
-  print "  This build has a new ad-hoc signature, so macOS discarded VoiceInk's"
-  print "  Accessibility and Input Monitoring grants. Until you re-grant them the"
-  print "  hotkey will do nothing."
+  print "  This build's contents changed, so it has a new ad-hoc signature and"
+  print "  macOS discarded VoiceInk's Accessibility and Input Monitoring grants."
+  print "  Until you re-grant them the hotkey will do nothing. Note the breakage"
+  print "  can also surface later, after your next reboot."
   print ""
   print "    1. Approve the Accessibility prompt VoiceInk shows on launch."
   print "    2. No prompt? Open System Settings > Privacy & Security >"
