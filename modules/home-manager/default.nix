@@ -66,6 +66,9 @@
       watch
       zsm
       dev-droplet-scripts  # dev-up, dev-down commands
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      voiceink-update # builds the VoiceInk dictation app from source (macOS only)
     ];
 
     sessionPath = [

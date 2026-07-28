@@ -4,6 +4,7 @@ final: prev: {
   git-coauthor = prev.callPackage ./git-coauthor { };
   graphiti-mcp = prev.callPackage ./graphiti-mcp { };
   system-update = prev.callPackage ./system-update { };
+  voiceink-update = prev.callPackage ./voiceink { };
   setup-battlenet = prev.callPackage ./setup-battlenet { };
   zsm = prev.callPackage ./zsm { };
 
