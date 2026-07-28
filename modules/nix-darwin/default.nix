@@ -35,7 +35,6 @@
     "protonvpn"
     "raycast"
     "spotify"
-    "superwhisper"
     "zed"
   ];
 
