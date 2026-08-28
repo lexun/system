@@ -160,6 +160,44 @@ def preflight-xcode [] {
   if $first_launch.exit_code != 0 {
     print "    runFirstLaunch failed; continuing anyway"
   }
+
+  trust-package-plugins
+  ensure-metal-toolchain
+}
+
+# mlx-swift ships a CudaBuild build-tool plugin and mlx-swift-lm ships the
+# MLXHuggingFaceMacros macro. Xcode refuses to run either until it has been
+# trusted, which in the GUI is a "Trust & Enable" prompt. xcodebuild cannot show
+# that prompt, so a headless build just fails with "must be enabled before it
+# can be used" (observed 2026-08-27, after mlx entered the dependency tree).
+#
+# The equivalent non-interactive consent is these two defaults. They are set
+# here rather than by patching upstream's Makefile: the update pulls only when
+# the checkout is clean, so a local Makefile edit would silently stop pulls.
+#
+# Note the misspelled "Validatation" key — that typo is Xcode's, and the
+# correctly spelled variant has no effect.
+def trust-package-plugins [] {
+  print "==> Trusting VoiceInk's package plugins and macros"
+  for key in ["IDESkipPackagePluginFingerprintValidatation" "IDESkipMacroFingerprintValidation"] {
+    do { ^defaults write com.apple.dt.Xcode $key -bool YES } | complete | ignore
+  }
+}
+
+# whisper.cpp's Metal kernels need the Metal toolchain, which Xcode 26 splits
+# out into a separately downloaded component. Without it the build dies on
+# "cannot execute tool 'metal'". The download is ~700MB, so only fetch it when
+# the compiler is actually missing.
+def ensure-metal-toolchain [] {
+  if (do { ^xcrun --find metal } | complete).exit_code == 0 {
+    return
+  }
+
+  print "==> Downloading the Metal toolchain (~700MB, one time)"
+  let result = (do { ^xcodebuild -downloadComponent MetalToolchain } | complete)
+  if $result.exit_code != 0 {
+    error make { msg: "Could not download the Metal toolchain. Run: xcodebuild -downloadComponent MetalToolchain" }
+  }
 }
 
 # Run a command with its output captured to a log, showing the tail only on
