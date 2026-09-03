@@ -101,20 +101,26 @@ def cdhash-of [app_path: string] {
   if ($lines | is-empty) { "" } else { $lines | first | str replace "CDHash=" "" | str trim }
 }
 
-# Local builds are ad-hoc signed, so a build whose output actually differs gets
-# a new signature, and macOS stops honouring the old TCC grants while System
-# Settings still shows them switched on. Clearing them makes that visible rather
-# than silent.
+# Local builds are ad-hoc signed, so their designated requirement is a bare
+# cdhash. A build whose output actually differs gets a new hash, and macOS stops
+# honouring the old TCC grants while System Settings still shows them switched
+# on. Clearing them makes that visible rather than silent.
 #
 # Observed 2026-07-28: the rejection may not appear until the next reboot, so an
-# update can seem fine for days and then break. That's why this warns loudly
-# instead of waiting for symptoms.
+# update can seem fine for days and then break.
 #
-# The durable fix is signing with a stable self-signed certificate so grants
-# survive rebuilds entirely. Not done yet; this is the stopgap.
+# Accessibility gates the hotkey (a cgSessionEventTap) and ScreenCapture gates
+# context enrichment. Input Monitoring is deliberately absent: VoiceInk never
+# calls the IOHID access APIs, so it cannot appear in that pane and resetting it
+# only produces instructions the user cannot follow.
+#
+# A stable self-signed certificate would make grants survive rebuilds, but it
+# cannot be combined with the hardened runtime: such a cert has no Team ID, and
+# the hardened runtime requires the process and its frameworks to share one, so
+# the app fails to load whisper.framework. Left ad-hoc on purpose.
 def reset-permissions [] {
   print "==> Clearing stale macOS permissions"
-  for service in ["Accessibility" "ListenEvent"] {
+  for service in ["Accessibility" "ScreenCapture"] {
     do { ^tccutil reset $service $BUNDLE_ID } | complete | ignore
   }
 }
@@ -124,7 +130,7 @@ def print-permission-instructions [] {
   print "ACTION REQUIRED — re-grant permissions"
   print ""
   print "  This build's contents changed, so it has a new ad-hoc signature and"
-  print "  macOS discarded VoiceInk's Accessibility and Input Monitoring grants."
+  print "  macOS discarded VoiceInk's Accessibility and Screen Recording grants."
   print "  Until you re-grant them the hotkey will do nothing. Note the breakage"
   print "  can also surface later, after your next reboot."
   print ""
@@ -133,6 +139,11 @@ def print-permission-instructions [] {
   print "       Accessibility and switch VoiceInk on."
   print "    3. Recording broken instead of the hotkey? Check the same"
   print "       Privacy & Security pane under Microphone."
+  print ""
+  print "  VoiceInk needs Accessibility, not Input Monitoring. It never requests"
+  print "  Input Monitoring, so it cannot appear in that pane."
+  print ""
+  print "  Hotkey dead while permissions look fine? Run: voiceink-doctor"
   print ""
   print "  Keep the existing grants instead with: voiceink-update --keep-permissions"
   print ""

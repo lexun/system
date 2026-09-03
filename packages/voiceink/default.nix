@@ -1,4 +1,5 @@
 {
+  symlinkJoin,
   writers,
   git,
   cmake,
@@ -16,8 +17,25 @@
 # guarantees while keeping its complexity, so the imperative parts stay
 # explicit and the recoverable failure modes are checked up front instead.
 
-writers.writeNuBin "voiceink-update" ''
-  const NIX_BIN_PATHS = [ "${git}/bin" "${cmake}/bin" "${gnumake}/bin" ]
+let
+  voiceink-update = writers.writeNuBin "voiceink-update" ''
+    const NIX_BIN_PATHS = [ "${git}/bin" "${cmake}/bin" "${gnumake}/bin" ]
 
-  ${builtins.readFile ./voiceink-update.nu}
-''
+    ${builtins.readFile ./voiceink-update.nu}
+  '';
+
+  # Separate binary because diagnosing is not updating: the hotkey breaks for
+  # reasons that have nothing to do with rebuilding the app, and reaching for
+  # voiceink-update to investigate is what turned one stale system lock into a
+  # multi-day hunt.
+  voiceink-doctor = writers.writeNuBin "voiceink-doctor" (
+    builtins.readFile ./voiceink-doctor.nu
+  );
+in
+symlinkJoin {
+  name = "voiceink-tools";
+  paths = [
+    voiceink-update
+    voiceink-doctor
+  ];
+}
