@@ -9,6 +9,17 @@ const REPO_URL = "https://github.com/Beingpax/VoiceInk.git"
 const APP_PATH = "/Applications/VoiceInk.app"
 const BUNDLE_ID = "com.prakashjoshipax.VoiceInk"
 
+# A stable code-signing identity, created once by hand:
+#   Keychain Access > Certificate Assistant > Create a Certificate
+#   (Self Signed Root, type Code Signing), then trust it for code signing:
+#     security find-certificate -c "VoiceInk Local" -p > cert.pem
+#     security add-trusted-cert -r trustRoot -p codeSign \
+#       -k ~/Library/Keychains/login.keychain-db cert.pem
+#
+# Without this the build is ad-hoc signed, its designated requirement is a bare
+# cdhash, and every rebuild that changes the binary orphans the TCC grants.
+const SIGNING_IDENTITY = "VoiceInk Local"
+
 def main [
   --repo: string = "~/workspace/VoiceInk" # checkout location
   --clean # rebuild the whisper framework from scratch
@@ -44,7 +55,7 @@ def main [
     run-quietly { ^make clean } "clean"
   }
   print $"==> Building VoiceInk ($version). A cold build takes several minutes."
-  run-quietly { ^make local } "build"
+  build-with-local-signing $repo_dir
 
   let built = ("~/Downloads/VoiceInk.app" | path expand)
   if not ($built | path exists) {
@@ -87,6 +98,63 @@ def main [
   if $binary_changed and (not $keep_permissions) {
     print-permission-instructions
   }
+}
+
+# Build via `make local`, with the local signing config patched in for the
+# duration of the build only.
+#
+# Two upstream facts force this shape. LocalBuild.xcconfig hardcodes
+# CODE_SIGN_IDENTITY = -, and an xcconfig beats an xcodebuild command-line build
+# setting, so the LOCAL_CODESIGN_IDENTITY override upstream documents cannot
+# take effect on its own (upstream's comment there claims otherwise; it is
+# wrong). And ENABLE_HARDENED_RUNTIME = YES from the project file cannot coexist
+# with a self-signed certificate: such a cert has no Team ID, the hardened
+# runtime requires a process and its frameworks to share one, and the app dies
+# at launch on "different Team IDs" loading whisper.framework.
+#
+# The file is restored afterwards because the update only pulls when the
+# checkout is clean, so leaving it modified would silently stop future pulls.
+def build-with-local-signing [repo_dir: string] {
+  let identity = (signing-identity)
+  if $identity == "" {
+    run-quietly { ^make local } "build"
+    return
+  }
+
+  let xcconfig = ([$repo_dir "LocalBuild.xcconfig"] | path join)
+  let original = (open --raw $xcconfig)
+
+  $"($original)
+// Added by voiceink-update for the duration of this build; see the comment on
+// build-with-local-signing. Never committed: a dirty checkout stops git pull.
+ENABLE_HARDENED_RUNTIME = NO
+CODE_SIGN_IDENTITY = ($identity)
+" | save --force $xcconfig
+
+  # try/catch so a failed build still restores the file: leaving it modified
+  # would silently stop every future pull.
+  try {
+    run-quietly { ^make local $"LOCAL_CODESIGN_IDENTITY=($identity)" } "build"
+  } catch { |err|
+    $original | save --force $xcconfig
+    error make { msg: $err.msg }
+  }
+
+  $original | save --force $xcconfig
+}
+
+# Empty when the certificate is missing or untrusted. An untrusted certificate
+# forms an identity but not a *valid* one, and `security find-identity -v`
+# excludes it, so the build silently falls back to ad-hoc signing.
+def signing-identity [] {
+  let found = (do { ^security find-identity -v -p codesigning } | complete)
+  if ($found.stdout | str contains $SIGNING_IDENTITY) {
+    return $SIGNING_IDENTITY
+  }
+
+  print $"    no valid \"($SIGNING_IDENTITY)\" certificate; falling back to ad-hoc"
+  print "    signing, so the permissions will not survive this rebuild"
+  ""
 }
 
 # Empty string when the app isn't present or has no signature.
