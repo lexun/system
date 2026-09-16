@@ -55,6 +55,7 @@
       nixfmt
       nodejs_24
       nufmt
+      poppler-utils # pdftotext/pdfinfo for the flow PDF route's privacy gate
       prettier
       ripgrep
       cargo
