@@ -64,6 +64,13 @@ Device hostnames are mapped in `devices/default.nix`:
 - **Home-manager integration**: User-level configuration management
 - **Custom packages**: Includes overlay system for additional software
 
+## Commits
+
+**Single-line title only, no body, no footers.** Imperative mood, capitalized, no trailing period, 50 characters or
+fewer — `git commit -m "Add poppler-utils for PDF text extraction"`. Never `Co-Authored-By`, never a heredoc body.
+This is Luke's convention in every repository; history here that violates it has been rewritten, so do not match
+older commits that carry bodies.
+
 ## Local Flake Development
 
 When adding local projects as flake inputs for testing:
