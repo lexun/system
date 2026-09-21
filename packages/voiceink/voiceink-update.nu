@@ -16,8 +16,16 @@ const BUNDLE_ID = "com.prakashjoshipax.VoiceInk"
 #     security add-trusted-cert -r trustRoot -p codeSign \
 #       -k ~/Library/Keychains/login.keychain-db cert.pem
 #
-# Without this the build is ad-hoc signed, its designated requirement is a bare
-# cdhash, and every rebuild that changes the binary orphans the TCC grants.
+# An ad-hoc signature's designated requirement is a content-derived cdhash,
+# so changing the binary orphans TCC grants. This identity gives local builds
+# a stable certificate-bound requirement instead.
+#
+# An imported identity can appear valid in `security find-identity -v` while
+# codesign still needs authorization to use its private key. If a build fails
+# with errSecInternalComponent, check for a pending Keychain/SecurityAgent
+# prompt for codesign and the intended key. Approve only a request you expect;
+# do not apply blanket Always Allow or keychain ACL changes. This is one possible
+# cause, not a diagnosis of every errSecInternalComponent failure.
 const SIGNING_IDENTITY = "VoiceInk Local"
 
 def main [
@@ -62,6 +70,11 @@ def main [
     error make { msg: $"Build reported success but ($built) is missing." }
   }
 
+  # Inspect both artifacts before quitting or replacing the installed app.
+  # Failed inspection must not look like two matching empty hashes, nor cause
+  # a blind permission reset. No keychain lookup can establish this continuity.
+  let permissions = (permission-plan (signature-of $APP_PATH) (signature-of $built))
+
   # Install
   let was_running = (app-running)
   if $was_running {
@@ -70,10 +83,6 @@ def main [
     sleep 2sec
   }
 
-  # A rebuild with unchanged inputs is bit-identical, so compare signatures to
-  # decide whether macOS will actually care. Must happen before the move.
-  let binary_changed = ((cdhash-of $APP_PATH) != (cdhash-of $built))
-
   print $"==> Installing to ($APP_PATH)"
   if ($APP_PATH | path exists) { rm -rf $APP_PATH }
   mv $built $APP_PATH
@@ -81,22 +90,12 @@ def main [
 
   print $"VoiceInk ($version) installed."
 
-  if not $binary_changed {
-    print "    binary is identical to the previous build; permissions left alone"
-  } else if $keep_permissions {
-    print "    binary changed, but permissions left alone as requested"
-  } else {
-    reset-permissions
-  }
+  apply-permission-plan $permissions $keep_permissions
 
   if $was_running {
     ^open $APP_PATH
   } else {
     print $"Launch it with: open ($APP_PATH)"
-  }
-
-  if $binary_changed and (not $keep_permissions) {
-    print-permission-instructions
   }
 }
 
@@ -143,49 +142,92 @@ CODE_SIGN_IDENTITY = ($identity)
   $original | save --force $xcconfig
 }
 
-# Empty when the certificate is missing or untrusted. An untrusted certificate
-# forms an identity but not a *valid* one, and `security find-identity -v`
-# excludes it, so the build silently falls back to ad-hoc signing.
+# Empty when the named certificate is missing or untrusted. The upstream build
+# then chooses its default identity; inspect the output rather than assuming
+# which signature resulted.
 def signing-identity [] {
   let found = (do { ^security find-identity -v -p codesigning } | complete)
   if ($found.stdout | str contains $SIGNING_IDENTITY) {
     return $SIGNING_IDENTITY
   }
 
-  print $"    no valid \"($SIGNING_IDENTITY)\" certificate; falling back to ad-hoc"
-  print "    signing, so the permissions will not survive this rebuild"
+  print $"    no valid \"($SIGNING_IDENTITY)\" certificate; using the upstream signing default"
+  print "    permission handling will use the built app's actual signature"
   ""
 }
 
-# Empty string when the app isn't present or has no signature.
-def cdhash-of [app_path: string] {
-  if not ($app_path | path exists) { return "" }
+# Missing is distinct from unreadable or invalid: a first install has no old
+# grants to reset, whereas failed inspection must stop before installation.
+def signature-of [app_path: string] {
+  if not ($app_path | path exists) { return null }
 
-  let result = (do { ^codesign -dvvv $app_path } | complete)
-  let lines = ($"($result.stdout)\n($result.stderr)"
-    | lines
-    | where ($it | str starts-with "CDHash="))
+  let verified = (do { ^codesign --verify --strict $app_path } | complete)
+  if $verified.exit_code != 0 {
+    error make { msg: $"Cannot verify signature of ($app_path); not installing or resetting permissions. ($verified.stderr)" }
+  }
 
-  if ($lines | is-empty) { "" } else { $lines | first | str replace "CDHash=" "" | str trim }
+  let result = (do { ^codesign -dvvv -r- $app_path } | complete)
+  if $result.exit_code != 0 {
+    error make { msg: $"Cannot inspect signature of ($app_path); not installing or resetting permissions. ($result.stderr)" }
+  }
+  let output = ($"($result.stdout)\n($result.stderr)" | lines)
+  let hashes = ($output | parse --regex '^CDHash=(?<hash>[0-9a-fA-F]{40})$')
+  let requirements = ($output | parse --regex '^designated => (?<requirement>.+)$')
+  let identifiers = ($output | parse --regex '^Identifier=(?<identifier>.+)$')
+  if ($hashes | length) != 1 or ($requirements | length) != 1 or ($identifiers | length) != 1 {
+    error make { msg: $"Incomplete signature information for ($app_path); not installing or resetting permissions." }
+  }
+  if $identifiers.0.identifier != $BUNDLE_ID {
+    error make { msg: $"Unexpected bundle identifier for ($app_path); not installing or resetting permissions." }
+  }
+
+  let requirement = $requirements.0.requirement
+  # Only recognize the exact leaf-pinned requirement generated by our local
+  # certificate signing. Do not mistake a broad/custom requirement containing
+  # the word 'certificate' for stable identity. Other changed signatures take
+  # the conservative reset path, even if codesign considers them valid.
+  let leaf_pinned = ($requirement =~ '^identifier "com\.prakashjoshipax\.VoiceInk" and certificate leaf = H"[0-9a-fA-F]{40}"$')
+  let has_authority = ($output | any { |line| $line | str starts-with 'Authority=' })
+  let adhoc = ('Signature=adhoc' in $output)
+  {
+    cdhash: ($hashes.0.hash | str downcase)
+    requirement: $requirement
+    certificate_bound: ($leaf_pinned and $has_authority and (not $adhoc))
+  }
 }
 
-# Local builds are ad-hoc signed, so their designated requirement is a bare
-# cdhash. A build whose output actually differs gets a new hash, and macOS stops
-# honouring the old TCC grants while System Settings still shows them switched
-# on. Clearing them makes that visible rather than silent.
-#
-# Observed 2026-07-28: the rejection may not appear until the next reboot, so an
-# update can seem fine for days and then break.
-#
-# Accessibility gates the hotkey (a cgSessionEventTap) and ScreenCapture gates
-# context enrichment. Input Monitoring is deliberately absent: VoiceInk never
-# calls the IOHID access APIs, so it cannot appear in that pane and resetting it
-# only produces instructions the user cannot follow.
-#
-# A stable self-signed certificate would make grants survive rebuilds, but it
-# cannot be combined with the hardened runtime: such a cert has no Team ID, and
-# the hardened runtime requires the process and its frameworks to share one, so
-# the app fails to load whisper.framework. Left ad-hoc on purpose.
+# This is a continuity check, not proof that the user has granted permissions.
+# A new certificate, a changed ad-hoc binary, or a signing-mode transition must
+# not inherit the old grant merely because a certificate exists in the keychain.
+def permission-plan [previous: any, current: any] {
+  if $current == null {
+    error make { msg: "Built app is missing; not installing or resetting permissions." }
+  }
+  if $previous == null {
+    return {reset: false, instructions: true, reason: "first install; grant permissions on launch"}
+  }
+  if $previous.cdhash == $current.cdhash and $previous.requirement == $current.requirement {
+    return {reset: false, instructions: false, reason: "signature is unchanged; permissions left alone"}
+  }
+  if $previous.certificate_bound and $current.certificate_bound and $previous.requirement == $current.requirement {
+    return {reset: false, instructions: false, reason: "certificate-bound identity is unchanged; permissions left alone"}
+  }
+  {reset: true, instructions: true, reason: "signing identity changed or continuity could not be established"}
+}
+
+def apply-permission-plan [plan: record, keep_permissions: bool] {
+  if $keep_permissions {
+    print "    permissions left alone as requested (--keep-permissions)"
+    return
+  }
+  print $"    ($plan.reason)"
+  if $plan.reset { reset-permissions }
+  if $plan.instructions { print-permission-instructions }
+}
+
+# Reset only after a verified signing transition, never just a CDHash change
+# under the same leaf-pinned certificate. Accessibility gates the active event
+# tap; ScreenCapture gates context enrichment, not the hotkey.
 def reset-permissions [] {
   print "==> Clearing stale macOS permissions"
   for service in ["Accessibility" "ScreenCapture"] {
@@ -197,10 +239,9 @@ def print-permission-instructions [] {
   print ""
   print "ACTION REQUIRED — re-grant permissions"
   print ""
-  print "  This build's contents changed, so it has a new ad-hoc signature and"
-  print "  macOS discarded VoiceInk's Accessibility and Screen Recording grants."
-  print "  Until you re-grant them the hotkey will do nothing. Note the breakage"
-  print "  can also surface later, after your next reboot."
+  print "  This is a first install or the previous signing identity wasn't retained."
+  print "  Check VoiceInk's Accessibility and Screen Recording permissions."
+  print "  Accessibility is needed for the hotkey; Screen Recording is for context."
   print ""
   print "    1. Approve the Accessibility prompt VoiceInk shows on launch."
   print "    2. No prompt? Open System Settings > Privacy & Security >"
@@ -265,17 +306,22 @@ def trust-package-plugins [] {
 
 # whisper.cpp's Metal kernels need the Metal toolchain, which Xcode 26 splits
 # out into a separately downloaded component. Without it the build dies on
-# "cannot execute tool 'metal'". The download is ~700MB, so only fetch it when
-# the compiler is actually missing.
+# "cannot execute tool 'metal'". A located binary can be a shim whose backing
+# toolchain is absent, so execute it instead of trusting `xcrun --find metal`.
+# The component is large and its size varies by Xcode release.
 def ensure-metal-toolchain [] {
-  if (do { ^xcrun --find metal } | complete).exit_code == 0 {
+  if (do { ^xcrun metal --version } | complete).exit_code == 0 {
     return
   }
 
-  print "==> Downloading the Metal toolchain (~700MB, one time)"
+  print "==> Downloading the Metal toolchain (size varies by Xcode version)"
   let result = (do { ^xcodebuild -downloadComponent MetalToolchain } | complete)
   if $result.exit_code != 0 {
     error make { msg: "Could not download the Metal toolchain. Run: xcodebuild -downloadComponent MetalToolchain" }
+  }
+  let probe = (do { ^xcrun metal --version } | complete)
+  if $probe.exit_code != 0 {
+    error make { msg: $"Metal still cannot run after the download. Check `xcrun metal --version` before rebuilding. ($probe.stderr)" }
   }
 }
 
