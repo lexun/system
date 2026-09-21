@@ -182,7 +182,33 @@ func pinned(cert string) string {
 }
 
 func signature(hash, requirement, authority string) string {
-	return "Identifier=" + bundleID + "\nCDHash=" + strings.Repeat(hash, 40) + "\n" + authority + "\ndesignated => " + requirement + "\n"
+	prefix := "designated => "
+	if authority == "Signature=adhoc" {
+		// Real codesign output comments synthesized ad-hoc requirements.
+		prefix = "# designated => "
+	}
+	return "Identifier=" + bundleID + "\nCDHash=" + strings.Repeat(hash, 40) + "\n" + authority + "\n" + prefix + requirement + "\n"
+}
+
+func TestAdhocRequirementOnStdout(t *testing.T) {
+	h := newHarness(t)
+	path := h.app("adhoc", "", 0, 0)
+	h.responses[key("codesign", "-dvvv", "-r-", path)] = []response{{
+		Out: `# designated => cdhash H"` + strings.Repeat("a", 40) + "\"\n",
+		Err: "Identifier=" + bundleID + "\nCDHash=" + strings.Repeat("a", 40) + "\nSignature=adhoc\n",
+	}}
+	out := h.run(fmt.Sprintf("signature-of '%s' | to json", path), "")
+	var info struct {
+		CDHash           string `json:"cdhash"`
+		Requirement      string `json:"requirement"`
+		CertificateBound bool   `json:"certificate_bound"`
+	}
+	if err := json.Unmarshal([]byte(out), &info); err != nil {
+		t.Fatal(err)
+	}
+	if info.CDHash != strings.Repeat("a", 40) || info.Requirement != `cdhash H"`+strings.Repeat("a", 40)+`"` || info.CertificateBound {
+		t.Fatalf("wrong ad-hoc signature: %+v", info)
+	}
 }
 
 func (h *harness) app(name, output string, verifyCode, displayCode int) string {
@@ -193,7 +219,15 @@ func (h *harness) app(name, output string, verifyCode, displayCode int) string {
 	}
 	h.responses[key("codesign", "--verify", "--strict", path)] = []response{{Code: verifyCode}}
 	if verifyCode == 0 {
-		h.responses[key("codesign", "-dvvv", "-r-", path)] = []response{{Err: output, Code: displayCode}}
+		var stdout, stderr strings.Builder
+		for _, line := range strings.SplitAfter(output, "\n") {
+			if strings.HasPrefix(line, "designated => ") || strings.HasPrefix(line, "# designated => ") {
+				stdout.WriteString(line)
+			} else {
+				stderr.WriteString(line)
+			}
+		}
+		h.responses[key("codesign", "-dvvv", "-r-", path)] = []response{{Out: stdout.String(), Err: stderr.String(), Code: displayCode}}
 	}
 	return path
 }
@@ -252,6 +286,7 @@ func TestFailedInspectionStopsBeforePermissionAction(t *testing.T) {
 		{"verification failure", good, "Cannot verify signature", 1, 0},
 		{"display failure despite plausible output", good, "Cannot inspect signature", 0, 1},
 		{"empty output is not a matching empty hash", "", "Incomplete signature", 0, 0},
+		{"duplicate bare and commented requirements", good + "# designated => duplicate\n", "Incomplete signature", 0, 0},
 		{"missing requirement", "Identifier=" + bundleID + "\nCDHash=" + strings.Repeat("a", 40), "Incomplete signature", 0, 0},
 		{"wrong bundle", strings.Replace(good, "Identifier="+bundleID, "Identifier=other.app", 1), "Unexpected bundle identifier", 0, 0},
 	} {

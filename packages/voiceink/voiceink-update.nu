@@ -172,7 +172,8 @@ def signature-of [app_path: string] {
   }
   let output = ($"($result.stdout)\n($result.stderr)" | lines)
   let hashes = ($output | parse --regex '^CDHash=(?<hash>[0-9a-fA-F]{40})$')
-  let requirements = ($output | parse --regex '^designated => (?<requirement>.+)$')
+  # codesign prefixes synthesized ad-hoc requirements with '# '.
+  let requirements = ($output | parse --regex '^(?:# )?designated => (?<requirement>.+)$')
   let identifiers = ($output | parse --regex '^Identifier=(?<identifier>.+)$')
   if ($hashes | length) != 1 or ($requirements | length) != 1 or ($identifiers | length) != 1 {
     error make { msg: $"Incomplete signature information for ($app_path); not installing or resetting permissions." }
