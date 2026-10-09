@@ -38,9 +38,26 @@
       fzf
       gh
       git-coauthor
-      (google-cloud-sdk.withExtraComponents [
-        google-cloud-sdk.components.gke-gcloud-auth-plugin
-      ])
+      (let
+        sdk = google-cloud-sdk.withExtraComponents [
+          google-cloud-sdk.components.gke-gcloud-auth-plugin
+        ];
+        python = python314.override { libffi = libffiReal; };
+      in
+        if stdenv.hostPlatform.isDarwin then
+          symlinkJoin {
+            name = sdk.name;
+            paths = [ sdk ];
+            nativeBuildInputs = [ makeWrapper ];
+            # Bypass the SDK wrapper's broken Python on macOS 27.
+            # https://github.com/NixOS/nixpkgs/issues/541367
+            postBuild = ''
+              rm "$out/bin/gcloud"
+              makeWrapper "${python}/bin/python" "$out/bin/gcloud" \
+                --add-flags "-S -B -W ignore ${sdk}/google-cloud-sdk/lib/gcloud.py"
+            '';
+          }
+        else sdk)
       pulumi
       pulumiPackages.pulumi-language-nodejs
       gnupg
