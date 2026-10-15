@@ -165,6 +165,10 @@
       diff = {
         external = "difft";
       };
+      # GitHub over HTTPS uses gh's SSO-authorized login, not a keychain token (2026-10-15: a VS Code OAuth token in the
+      # macOS keychain was not SAML-authorized for the org, so HTTPS git to org repos returned 403).
+      credential."https://github.com".helper = [ "" "!gh auth git-credential" ];
+      credential."https://gist.github.com".helper = [ "" "!gh auth git-credential" ];
     };
   };
 
