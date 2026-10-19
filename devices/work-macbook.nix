@@ -27,7 +27,7 @@ darwin.lib.darwinSystem {
           cloudsmith-cli
           fly
           mob
-          teleport_17
+          teleport_18
         ];
         programs.go.enable = true;
         programs.zsh = {
