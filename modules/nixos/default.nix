@@ -52,6 +52,9 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  systemd.user.services.kde-baloo.enable = false;
+  systemd.user.services."drkonqi-coredump-launcher@".serviceConfig.LimitCORE = 0;
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
